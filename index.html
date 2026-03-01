@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -1058,3 +1059,18 @@ const ArchiveConverter = {
       for(let i=0;i<names.length;i++){const blob=await zip.files[names[i]].async('blob');setTimeout(()=>downloadBlob(blob,names[i].split('/').pop()),i*300);}
       showToast(`Extracted ${names.length} files! 🎉`);
     }catch(e){if(info)info.innerHTML=`<div class="info-banner" style="border-color:rgba(239,68,68,.4)">❌ Failed: ${e.mess
+age}</div>`;}
+  }
+};
+
+// ─── BOOT ───
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+  ImageConverter.init();
+  PDFTools.init();
+  DocConverter.init();
+  ArchiveConverter.init();
+});
+</script>
+</body>
+</html>

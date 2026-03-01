@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FileForge – Free Online File Converter & Compressor</title>
+  <meta name="description" content="Convert and compress images, PDFs, audio, video, documents free online. JPG, PNG, WebP, PDF, MP3, MP4 and 30+ formats. No signup. 100% browser-based." />
+  <meta name="keywords" content="file converter, image converter, pdf compressor, jpg to png, compress pdf, webp converter, audio converter, video converter, free online tools" />
+  <meta property="og:title" content="FileForge – Free File Converter & Compressor" />
+  <meta property="og:description" content="Convert & compress 30+ file formats free in your browser. No uploads, no signup." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Google AdSense — Uncomment after approval & replace publisher ID -->
+  <!--
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+<style>
+:root {
+  --font: 'Outfit', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --bg: #080b14;
+  --bg2: #0d1120;
+  --bg3: #121828;
+  --card: rgba(255,255,255,0.04);
+  --card-hover: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(99,179,237,0.35);
+  --text: #f0f4ff;
+  --text2: #8892aa;
+  --text3: #4a5270;
+  --blue: #4f8ef7;
+  --purple: #9b72f7;
+  --cyan: #38d9f5;
+  --green: #34d399;
+  --pink: #f472b6;
+  --orange: #fb923c;
+  --grad: linear-gradient(135deg, #4f8ef7, #9b72f7);
+  --grad2: linear-gradient(135deg, #38d9f5, #4f8ef7);
+  --nav-h: 64px;
+  --r: 14px;
+  --r2: 20px;
+  --r3: 28px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-theme="light"] {
+  --bg: #f4f6fb;
+  --bg2: #ffffff;
+  --bg3: #edf0f7;
+  --card: rgba(255,255,255,0.8);
+  --card-hover: rgba(255,255,255,0.95);
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(79,142,247,0.4);
+  --text: #0d1120;
+  --text2: #4a5270;
+  --text3: #9aa0b8;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: var(--font); }
+img { max-width: 100%; }
+
+/* ─── GRID NOISE BACKGROUND ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(79,142,247,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(155,114,247,0.10) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(8,11,20,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+[data-theme="light"] nav { background: rgba(244,246,251,0.9); }
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 24px; height: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.25rem; font-weight: 800;
+  letter-spacing: -0.5px; flex-shrink: 0;
+}
+.logo-bolt {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--grad);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+}
+.logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links {
+  display: flex; align-items: center; gap: 2px; list-style: none;
+}
+.nav-links a {
+  padding: 7px 14px; border-radius: 10px;
+  font-size: 0.88rem; font-weight: 500; color: var(--text2);
+  transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--card); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.theme-btn {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text2); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.theme-btn:hover { color: var(--text); border-color: var(--border-hover); }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--card); border: 1px solid var(--border);
+  align-items: center; justify-content: center;
+}
+.hamburger span {
+  display: block; width: 18px; height: 2px;
+  background: var(--text2); border-radius: 2px;
+  transition: all 0.3s;
+}
+.mobile-menu {
+  display: none;
+  position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 99;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 12px 24px 20px; flex-direction: column; gap: 4px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  padding: 11px 14px; border-radius: 10px;
+  font-size: 0.95rem; font-weight: 500; color: var(--text2);
+  transition: all 0.2s;
+}
+.mobile-menu a:hover { color: var(--text); background: var(--card); }
+
+/* ─── PAGE SYSTEM ─── */
+main { padding-top: var(--nav-h); position: relative; z-index: 1; }
+.page { display: none; }
+.page.active { display: block; animation: fadeUp 0.35s var(--ease) both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 780px; margin: 0 auto;
+  padding: 72px 24px 56px;
+  text-align: center;
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.25);
+  color: var(--blue); border-radius: 50px;
+  padding: 6px 18px; font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.3px; margin-bottom: 28px;
+}
+.pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+.hero h1 {
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -2px; margin-bottom: 18px;
+}
+.grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p {
+  font-size: 1.05rem; color: var(--text2);
+  line-height: 1.7; max-width: 520px;
+  margin: 0 auto 40px; font-weight: 400;
+}
+.hero-stats {
+  display: flex; justify-content: center;
+  gap: 8px; flex-wrap: wrap;
+}
+.stat-chip {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 20px;
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 100px;
+}
+.stat-num { font-size: 1.5rem; font-weight: 900; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-label { font-size: 0.72rem; color: var(--text3); font-weight: 500; margin-top: 2px; }
+
+/* ─── FORMATS BAR ─── */
+.formats-wrap {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 24px 32px;
+}
+.formats-box {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 22px 24px;
+}
+.formats-label {
+  font-size: 0.7rem; font-weight: 700; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.formats-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.fmt-tag {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 11px;
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+  color: var(--text2); transition: all 0.2s; cursor: default;
+}
+.fmt-tag:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ─── SECTION ─── */
+.section { padding: 0 0 80px; }
+.inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.section-head { margin-bottom: 28px; }
+.section-title { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+.section-sub { color: var(--text2); font-size: 0.9rem; }
+
+/* ─── TABS ─── */
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 50px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text2); font-size: 0.85rem; font-weight: 600;
+  transition: all 0.2s;
+}
+.tab:hover { border-color: var(--border-hover); color: var(--text); }
+.tab.active { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 4px 20px rgba(79,142,247,0.3); }
+
+/* ─── TOOLS GRID ─── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+.tool-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 22px 18px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  cursor: pointer; transition: all 0.22s var(--ease);
+  position: relative; overflow: hidden;
+}
+.tool-card:hover {
+  border-color: var(--border-hover);
+  background: var(--card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+.tool-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--grad); opacity: 0;
+  transition: opacity 0.22s;
+}
+.tool-card:hover::before { opacity: 0.03; }
+.ti {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.ti-blue { background: rgba(79,142,247,0.12); }
+.ti-purple { background: rgba(155,114,247,0.12); }
+.ti-pink { background: rgba(244,114,182,0.12); }
+.ti-green { background: rgba(52,211,153,0.12); }
+.ti-orange { background: rgba(251,146,60,0.12); }
+.ti-cyan { background: rgba(56,217,245,0.12); }
+.tbadge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.65rem; font-weight: 700; padding: 3px 9px;
+  border-radius: 50px; width: fit-content;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+.tb-img { background: rgba(56,217,245,0.12); color: var(--cyan); }
+.tb-pdf { background: rgba(244,114,182,0.12); color: var(--pink); }
+.tb-audio { background: rgba(79,142,247,0.12); color: var(--blue); }
+.tb-video { background: rgba(155,114,247,0.12); color: var(--purple); }
+.tool-name { font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
+.tool-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.55; flex: 1; }
+.tool-arrow { font-size: 1rem; color: var(--text3); transition: all 0.2s; align-self: flex-end; }
+.tool-card:hover .tool-arrow { transform: translateX(4px); color: var(--blue); }
+
+/* ─── HOW IT WORKS ─── */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.step {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 24px 20px; text-align: center;
+  transition: all 0.2s;
+}
+.step:hover { transform: translateY(-3px); border-color: var(--border-hover); }
+.step-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--grad); color: #fff;
+  font-size: 1.1rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+.step-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 8px; }
+.step-desc { color: var(--text2); font-size: 0.8rem; line-height: 1.55; }
+
+/* ─── TOOL PAGE ─── */
+.tool-pg { padding: 32px 0 80px; }
+.tool-pg-inner { max-width: 760px; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text2); font-size: 0.85rem; font-weight: 500;
+  margin-bottom: 20px; transition: color 0.2s;
+}
+.back-link:hover { color: var(--blue); }
+.tool-hdr {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+}
+.tool-hdr-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; flex-shrink: 0;
+}
+.tool-hdr h1 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+.tool-hdr p { color: var(--text2); font-size: 0.88rem; }
+
+/* ─── UPLOAD ZONE ─── */
+.upload-zone {
+  background: var(--card); border: 2px dashed var(--border);
+  border-radius: var(--r3); padding: 48px 32px;
+  text-align: center; cursor: pointer;
+  transition: all 0.25s var(--ease);
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--blue);
+  background: rgba(79,142,247,0.05);
+  box-shadow: 0 0 0 4px rgba(79,142,247,0.08);
+}
+.upload-zone * { pointer-events: none; }
+.upload-zone button { pointer-events: auto; }
+.uz-icon {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: rgba(79,142,247,0.1); margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; transition: transform 0.3s;
+}
+.upload-zone:hover .uz-icon { transform: scale(1.08) rotate(-5deg); }
+.uz-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+.uz-sub { color: var(--text2); font-size: 0.82rem; margin-bottom: 20px; line-height: 1.5; }
+input[type="file"] { display: none; }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 24px; border-radius: 50px; border: none;
+  font-size: 0.88rem; font-weight: 600; transition: all 0.2s;
+  letter-spacing: 0.1px;
+}
+.btn-primary {
+  background: var(--grad); color: #fff;
+  box-shadow: 0 4px 16px rgba(79,142,247,0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,142,247,0.5); }
+.btn-secondary {
+  background: var(--card); color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--border-hover); }
+.btn-success {
+  background: linear-gradient(135deg, #34d399, #059669); color: #fff;
+  box-shadow: 0 4px 16px rgba(52,211,153,0.3);
+}
+.btn-success:hover { transform: translateY(-2px); }
+
+/* ─── OPTIONS PANEL ─── */
+.opts-panel {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 22px; margin-top: 16px;
+}
+.opts-title {
+  font-size: 0.9rem; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.opts-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+.opt-group { display: flex; flex-direction: column; gap: 6px; }
+.opt-label {
+  font-size: 0.68rem; color: var(--text3);
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+}
+select, input[type="text"] {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 9px 13px;
+  color: var(--text); font-family: var(--font); font-size: 0.88rem;
+  transition: border-color 0.2s; min-width: 140px;
+}
+select:focus, input[type="text"]:focus {
+  outline: none; border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(79,142,247,0.15);
+}
+.slider-wrap { display: flex; flex-direction: column; gap: 8px; min-width: 200px; }
+.slider-hdr { display: flex; justify-content: space-between; align-items: center; }
+.slider-val { font-weight: 800; font-size: 0.95rem; color: var(--blue); }
+input[type="range"] {
+  -webkit-appearance: none; width: 100%; height: 4px;
+  border-radius: 2px; background: var(--border); cursor: pointer; min-width: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--grad); box-shadow: 0 2px 8px rgba(79,142,247,0.4);
+}
+
+/* ─── FILE LIST ─── */
+.file-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.file-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 13px 16px;
+  display: flex; align-items: center; gap: 12px;
+  transition: border-color 0.2s;
+}
+.file-item:hover { border-color: var(--border-hover); }
+.f-thumb {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: var(--bg3); overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.f-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.f-info { flex: 1; min-width: 0; }
+.f-name { font-weight: 600; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.f-meta { font-size: 0.73rem; color: var(--text3); margin-top: 2px; }
+.f-status { flex-shrink: 0; }
+.s-wait { font-size: 0.75rem; font-weight: 600; color: var(--text3); }
+.s-proc { font-size: 0.75rem; font-weight: 600; color: var(--blue); }
+.s-done { font-size: 0.75rem; font-weight: 600; color: var(--green); }
+.s-err  { font-size: 0.75rem; font-weight: 600; color: var(--pink); }
+.f-rm {
+  background: none; border: none; color: var(--text3);
+  font-size: 0.9rem; padding: 5px; transition: color 0.2s; flex-shrink: 0;
+}
+.f-rm:hover { color: var(--pink); }
+
+/* ─── ACTION BAR ─── */
+.action-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+/* ─── PDF SUBTABS ─── */
+.pdf-tabs { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 24px; }
+.pdf-tab {
+  display: flex; align-items: center; gap: 5px;
+  padding: 8px 16px; border-radius: 50px;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--text2); font-size: 0.82rem; font-weight: 600;
+  transition: all 0.2s;
+}
+.pdf-tab:hover { border-color: var(--border-hover); color: var(--text); }
+.pdf-tab.active { background: var(--grad); color: #fff; border-color: transparent; }
+.pdf-panel { display: none; }
+.pdf-panel.active { display: block; animation: fadeUp 0.3s var(--ease); }
+
+/* ─── INFO BANNER ─── */
+.info-banner {
+  background: rgba(79,142,247,0.07); border: 1px solid rgba(79,142,247,0.18);
+  border-radius: var(--r); padding: 13px 18px;
+  font-size: 0.83rem; color: var(--text2); margin-bottom: 18px; line-height: 1.6;
+}
+.info-banner strong { color: var(--text); }
+
+/* ─── AD SLOTS ─── */
+.ad-slot {
+  background: var(--card); border: 1.5px dashed var(--border);
+  border-radius: var(--r); display: flex; align-items: center; justify-content: center;
+  color: var(--text3); font-size: 0.73rem; text-align: center;
+  flex-direction: column; gap: 3px; padding: 12px;
+}
+.ad-h { width: 100%; min-height: 80px; margin: 24px 0; }
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  background: var(--bg2); border: 1px solid var(--border-hover);
+  border-radius: var(--r2); padding: 12px 18px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3); max-width: 300px;
+  transform: translateY(110px); opacity: 0;
+  transition: all 0.35s var(--ease); pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast-icon { font-size: 1.1rem; }
+.toast-msg { font-size: 0.83rem; font-weight: 500; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bg2); border-top: 1px solid var(--border);
+  padding: 52px 24px 28px; position: relative; z-index: 1;
+}
+.footer-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px; margin-bottom: 40px;
+}
+.footer-brand p { color: var(--text2); font-size: 0.83rem; line-height: 1.7; margin-top: 12px; max-width: 240px; }
+.footer-col h4 { font-weight: 700; font-size: 0.88rem; margin-bottom: 14px; }
+.footer-col a { display: block; color: var(--text2); font-size: 0.82rem; margin-bottom: 8px; transition: color 0.2s; }
+.footer-col a:hover { color: var(--blue); }
+.footer-bottom {
+  max-width: 1100px; margin: 0 auto;
+  border-top: 1px solid var(--border); padding-top: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+}
+.footer-bottom p { color: var(--text3); font-size: 0.77rem; }
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { color: var(--text3); font-size: 0.77rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--blue); }
+
+/* ─── CONTENT PAGES ─── */
+.content-pg { max-width: 700px; margin: 0 auto; padding: 48px 24px 80px; }
+.content-pg h1 { font-size: 1.9rem; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px; }
+.content-pg .meta { color: var(--text3); font-size: 0.8rem; margin-bottom: 28px; }
+.content-block {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 24px 26px; margin-bottom: 14px;
+}
+.content-block h3 { font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
+.content-block p { color: var(--text2); font-size: 0.87rem; line-height: 1.75; }
+
+/* ─── UTILS ─── */
+.hidden { display: none !important; }
+.mt8 { margin-top: 8px; }
+.mt16 { margin-top: 16px; }
+.mt24 { margin-top: 24px; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 52px 20px 44px; }
+  .hero h1 { font-size: 2rem; letter-spacing: -1px; }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .tool-hdr { flex-direction: column; align-items: flex-start; }
+  .opts-row { flex-direction: column; align-items: stretch; }
+  .steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .tools-grid { grid-template-columns: 1fr; }
+  .tabs { gap: 6px; }
+  .tab { padding: 7px 14px; font-size: 0.8rem; }
+  .hero h1 { font-size: 1.75rem; }
+  .hero-stats { gap: 6px; }
+  .stat-chip { min-width: 80px; padding: 9px 14px; }
+  .steps { grid-template-columns: 1fr; }
+  .pdf-tabs { gap: 5px; }
+  .pdf-tab { padding: 7px 12px; font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo" data-page="home">
+      <div class="logo-bolt">⚡</div>
+      File<span>Forge</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" data-page="home">Home</a></li>
+      <li><a href="#" data-page="image-converter">Images</a></li>
+      <li><a href="#" data-page="pdf-tools">PDF</a></li>
+      <li><a href="#" data-page="audio-converter">Audio</a></li>
+      <li><a href="#" data-page="video-converter">Video</a></li>
+      <li><a href="#" data-page="about">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☀️</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" data-page="home">🏠 Home</a>
+  <a href="#" data-page="image-converter">🖼️ Images</a>
+  <a href="#" data-page="pdf-tools">📄 PDF</a>
+  <a href="#" data-page="audio-converter">🎵 Audio</a>
+  <a href="#" data-page="video-converter">🎬 Video</a>
+  <a href="#" data-page="about">ℹ️ About</a>
+</div>
+
+<main>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="hero-pill"><div class="pill-dot"></div>100% Free · No Signup · Runs in Your Browser</div>
+    <h1>Convert & Compress<br><span class="grad-text">Any File Format</span></h1>
+    <p>Transform images, PDFs, audio, and video instantly in your browser. Your files never leave your device — fast, private, and completely free.</p>
+    <div class="hero-stats">
+      <div class="stat-chip"><span class="stat-num">30+</span><span class="stat-label">Formats</span></div>
+      <div class="stat-chip"><span class="stat-num">100%</span><span class="stat-label">Browser-Based</span></div>
+      <div class="stat-chip"><span class="stat-num">0</span><span class="stat-label">Files to Server</span></div>
+      <div class="stat-chip"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
+    </div>
+  </section>
+
+  <div class="formats-wrap">
+    <div class="formats-box">
+      <div class="formats-label">Supported Formats</div>
+      <div class="formats-list">
+        <span class="fmt-tag">PDF</span><span class="fmt-tag">DOCX</span><span class="fmt-tag">PPT</span>
+        <span class="fmt-tag">PPTX</span><span class="fmt-tag">XLS</span><span class="fmt-tag">XLSX</span>
+        <span class="fmt-tag">JPG</span><span class="fmt-tag">PNG</span><span class="fmt-tag">WebP</span>
+        <span class="fmt-tag">SVG</span><span class="fmt-tag">HEIC</span><span class="fmt-tag">AVIF</span>
+        <span class="fmt-tag">GIF</span><span class="fmt-tag">BMP</span><span class="fmt-tag">TIFF</span>
+        <span class="fmt-tag">MP4</span><span class="fmt-tag">MKV</span><span class="fmt-tag">MOV</span>
+        <span class="fmt-tag">AVI</span><span class="fmt-tag">WebM</span><span class="fmt-tag">MP3</span>
+        <span class="fmt-tag">WAV</span><span class="fmt-tag">FLAC</span><span class="fmt-tag">AAC</span>
+        <span class="fmt-tag">OGG</span><span class="fmt-tag">ZIP</span><span class="fmt-tag">RAR</span>
+        <span class="fmt-tag">CSV</span><span class="fmt-tag">HTML</span><span class="fmt-tag">TXT</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="inner">
+
+      <!-- Ad Banner -->
+      <div class="ad-slot ad-h">
+        📢 Advertisement · 728×90
+        <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+      </div>
+
+      <div class="section-head">
+        <h2 class="section-title">All Conversion Tools</h2>
+        <p class="section-sub">No account needed. Pick a tool and convert instantly.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-cat="all">⚡ All Tools</button>
+        <button class="tab" data-cat="image">🖼️ Images</button>
+        <button class="tab" data-cat="pdf">📄 PDF</button>
+        <button class="tab" data-cat="audio">🎵 Audio</button>
+        <button class="tab" data-cat="video">🎬 Video</button>
+      </div>
+
+      <div class="tools-grid">
+
+        <!-- IMAGE TOOLS -->
+        <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter')">
+          <div class="ti ti-blue">🔄</div>
+          <span class="tbadge tb-img">🖼️ Image</span>
+          <div class="tool-name">Image Format Converter</div>
+          <div class="tool-desc">Convert JPG, PNG, WebP, GIF, BMP between any format. Batch supported.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="image" onclick="App.showPage('image-compressor')">
+          <div class="ti ti-cyan">🗜️</div>
+          <span class="tbadge tb-img">🖼️ Image</span>
+          <div class="tool-name">Image Compressor</div>
+          <div class="tool-desc">Reduce image file size up to 90% without visible quality loss.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/jpeg'">
+          <div class="ti ti-blue">🔵</div>
+          <span class="tbadge tb-img">🖼️ Image</span>
+          <div class="tool-name">PNG to JPG</div>
+          <div class="tool-desc">Convert PNG images to JPG format instantly. Smaller file size.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/png'">
+          <div class="ti ti-purple">🟣</div>
+          <span class="tbadge tb-img">🖼️ Image</span>
+          <div class="tool-name">JPG to PNG</div>
+          <div class="tool-desc">Convert JPG/JPEG to PNG with full transparency support.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/webp'">
+          <div class="ti ti-cyan">🌐</div>
+          <span class="tbadge tb-img">🖼️ Image</span>
+          <div class="tool-name">Convert to WebP</div>
+          <div class="tool-desc">Modern web format. Smaller than JPG/PNG, faster loading.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <!-- PDF TOOLS -->
+        <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools')">
+          <div class="ti ti-pink">📄</div>
+          <span class="tbadge tb-pdf">📄 PDF</span>
+          <div class="tool-name">PDF Compressor</div>
+          <div class="tool-desc">Reduce PDF file size while maintaining quality. Perfect for email.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=merge]')?.click(),50)">
+          <div class="ti ti-pink">🔗</div>
+          <span class="tbadge tb-pdf">📄 PDF</span>
+          <div class="tool-name">Merge PDFs</div>
+          <div class="tool-desc">Combine multiple PDF files into one document in seconds.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=split]')?.click(),50)">
+          <div class="ti ti-orange">✂️</div>
+          <span class="tbadge tb-pdf">📄 PDF</span>
+          <div class="tool-name">Split PDF</div>
+          <div class="tool-desc">Split into individual pages or extract specific page ranges.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=rotate]')?.click(),50)">
+          <div class="ti ti-green">🔄</div>
+          <span class="tbadge tb-pdf">📄 PDF</span>
+          <div class="tool-name">Rotate PDF</div>
+          <div class="tool-desc">Rotate all pages 90°, 180°, or 270° with one click.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=toimg]')?.click(),50)">
+          <div class="ti ti-purple">🖼️</div>
+          <span class="tbadge tb-pdf">📄 PDF</span>
+          <div class="tool-name">PDF to Images</div>
+          <div class="tool-desc">Convert each PDF page into a high-quality JPG or PNG image.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <!-- AUDIO -->
+        <div class="tool-card" data-cat="audio" onclick="App.showPage('audio-converter')">
+          <div class="ti ti-blue">🎵</div>
+          <span class="tbadge tb-audio">🎵 Audio</span>
+          <div class="tool-name">Audio Converter</div>
+          <div class="tool-desc">Convert MP3, WAV, OGG, AAC, FLAC between formats.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+        <!-- VIDEO -->
+        <div class="tool-card" data-cat="video" onclick="App.showPage('video-converter')">
+          <div class="ti ti-purple">🎬</div>
+          <span class="tbadge tb-video">🎬 Video</span>
+          <div class="tool-name">Video Converter</div>
+          <div class="tool-desc">Convert MP4, AVI, MOV, WebM, MKV. Make GIFs from video clips.</div>
+          <div class="tool-arrow">→</div>
+        </div>
+
+      </div>
+
+      <!-- How It Works -->
+      <div style="margin-top:56px">
+        <div class="section-head">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-sub">Convert any file in 3 simple steps</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-title">Upload Your File</div><div class="step-desc">Drag & drop or click to browse. Works with all popular formats.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-title">Choose Settings</div><div class="step-desc">Pick output format, quality, and options. Simple and fast.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-title">Download Result</div><div class="step-desc">Conversion happens instantly. Click download — done!</div></div>
+          <div class="step"><div class="step-num">🔒</div><div class="step-title">100% Private</div><div class="step-desc">Files never leave your device. No servers, no tracking, ever.</div></div>
+        </div>
+      </div>
+
+      <!-- Ad Banner -->
+      <div class="ad-slot ad-h" style="margin-top:48px">
+        📢 Advertisement · 728×90
+        <!-- <ins class="adsbygoogle" ...></ins> -->
+      </div>
+
+    </div>
+  </section>
+</div>
+
+
+<!-- ══════════ IMAGE CONVERTER ══════════ -->
+<div id="page-image-converter" class="page">
+  <div class="inner tool-pg">
+    <div class="tool-pg-inner">
+      <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+      <div class="tool-hdr">
+        <div class="tool-hdr-icon ti-blue">🔄</div>
+        <div><h1>Image Format Converter</h1><p>Convert JPG, PNG, WebP, GIF, BMP — batch supported</p></div>
+      </div>
+      <div class="ad-slot ad-h">📢 Ad · 728×90</div>
+      <div class="upload-zone" id="img-zone">
+        <input type="file" id="img-input" multiple accept="image/*" />
+        <div class="uz-icon">🖼️</div>
+        <div class="uz-title">Drop Images Here</div>
+        <div class="uz-sub">JPG, PNG, WebP, GIF, BMP, TIFF · Multiple files · Drag & drop or click</div>
+        <button class="btn btn-primary" onclick="document.getElementById('img-input').click()">Browse Files</button>
+      </div>
+      <div class="opts-panel">
+        <div class="opts-title">⚙️ Settings</div>
+        <div class="opts-row">
+          <div class="opt-group">
+            <label class="opt-label" for="img-format">Output Format</label>
+            <select id="img-format">
+              <option value="image/jpeg">JPG / JPEG</option>
+              <option value="image/png">PNG</option>
+              <option value="image/webp">WebP</option>
+              <option value="image/bmp">BMP</option>
+            </select>
+          </div>
+          <div class="slider-wrap">
+            <div class="slider-hdr">
+              <label class="opt-label">Quality</label>
+              <span class="slider-val" id="img-quality-val">85%</span>
+            </div>
+            <input type="range" id="img-quality" min="10" max="100" value="85" />
+          </div>
+        </div>
+      </div>
+      <div id="img-file-list" class="file-list"></div>
+      <div class="action-bar hidden" id="img-actions">
+        <button class="btn btn-primary" id="img-convert-btn">⚡ Convert All</button>
+        <button class="btn btn-success hidden" id="img-download-btn">⬇️ Download All</button>
+        <button class="btn btn-secondary" id="img-clear-btn">🗑️ Clear</button>
+      </div>
+      <div class="ad-slot ad-h mt24">📢 Ad · 728×90</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ IMAGE COMPRESSOR ══════════ -->
+<div id="page-image-compressor" class="page">
+  <div class="inner tool-pg">
+    <div class="tool-pg-inner">
+      <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+      <div class="tool-hdr">
+        <div class="tool-hdr-icon ti-cyan">🗜️</div>
+        <div><h1>Image Compressor</h1><p>Reduce file size up to 90% — no visible quality loss</p></div>
+      </div>
+      <div class="ad-slot ad-h">📢 Ad · 728×90</div>
+      <div class="upload-zone" id="imgc-zone">
+        <input type="file" id="imgc-input" multiple accept="image/jpeg,image/png,image/webp" />
+        <div class="uz-icon">🗜️</div>
+        <div class="uz-title">Drop Images to Compress</div>
+        <div class="uz-sub">JPG, PNG, WebP · Batch compression · Drag & drop or click</div>
+        <button class="btn btn-primary" onclick="document.getElementById('imgc-input').click()">Browse Files</button>
+      </div>
+      <div class="opts-panel">
+        <div class="opts-title">⚙️ Compression</div>
+        <div class="opts-row">
+          <div class="slider-wrap" style="min-width:240px">
+            <div class="slider-hdr">
+              <label class="opt-label">Quality Level</label>
+              <span class="slider-val" id="imgc-quality-val">72%</span>
+            </div>
+            <input type="range" id="imgc-quality" min="10" max="95" value="72" />
+          </div>
+          <p style="font-size:0.78rem;color:var(--text3);align-self:flex-end;padding-bottom:4px">60–80% = best balance</p>
+        </div>
+      </div>
+      <div id="imgc-file-list" class="file-list"></div>
+      <div class="action-bar hidden" id="imgc-actions">
+        <button class="btn btn-primary" id="imgc-compress-btn">🗜️ Compress All</button>
+        <button class="btn btn-success hidden" id="imgc-download-btn">⬇️ Download All</button>
+        <button class="btn btn-secondary" id="imgc-clear-btn">🗑️ Clear</button>
+      </div>
+      <div class="ad-slot ad-h mt24">📢 Ad · 728×90</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ PDF TOOLS ══════════ -->
+<div id="page-pdf-tools" class="page">
+  <div class="inner tool-pg">
+    <div class="tool-pg-inner">
+      <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+      <div class="tool-hdr">
+        <div class="tool-hdr-icon ti-pink">📄</div>
+        <div><h1>PDF Tools</h1><p>Compress, merge, split, rotate and convert PDF files</p></div>
+      </div>
+      <div class="ad-slot ad-h">📢 Ad · 728×90</div>
+
+      <div class="pdf-tabs">
+        <button class="pdf-tab active" data-panel="compress">🗜️ Compress</button>
+        <button class="pdf-tab" data-panel="merge">🔗 Merge</button>
+        <button class="pdf-tab" data-panel="split">✂️ Split</button>
+        <button class="pdf-tab" data-panel="rotate">🔄 Rotate</button>
+        <button class="pdf-tab" data-panel="toimg">🖼️ PDF→Images</button>
+      </div>
+
+      <!-- COMPRESS -->
+      <div id="pdf-compress" class="pdf-panel active">
+        <div class="upload-zone" id="pdfc-zone">
+          <input type="file" id="pdfc-input" multiple accept=".pdf,application/pdf" />
+          <div class="uz-icon">📄</div>
+          <div class="uz-title">Drop PDFs to Compress</div>
+          <div class="uz-sub">Reduces PDF size while keeping quality</div>
+          <button class="btn btn-primary" onclick="document.getElementById('pdfc-input').click()">Browse PDF Files</button>
+        </div>
+        <div id="pdfc-list" class="file-list mt16"></div>
+      </div>
+
+      <!-- MERGE -->
+      <div id="pdf-merge" class="pdf-panel">
+        <div class="upload-zone" id="pdfm-zone">
+          <input type="file" id="pdfm-input" multiple accept=".pdf" />
+          <div class="uz-icon">🔗</div>
+          <div class="uz-title">Drop PDFs to Merge</div>
+          <div class="uz-sub">Add 2 or more PDFs — combined in order</div>
+          <button class="btn btn-primary" onclick="document.getElementById('pdfm-input').click()">Browse PDF Files</button>
+        </div>
+        <div id="pdfm-list" class="file-list mt16"></div>
+        <div class="action-bar mt16">
+          <button class="btn btn-primary hidden" id="pdfm-merge-btn">🔗 Merge All PDFs</button>
+        </div>
+      </div>
+
+      <!-- SPLIT -->
+      <div id="pdf-split" class="pdf-panel">
+        <div class="upload-zone" id="pdfs-zone">
+          <input type="file" id="pdfs-input" accept=".pdf" />
+          <div class="uz-icon">✂️</div>
+          <div class="uz-title">Drop a PDF to Split</div>
+          <div class="uz-sub">Extract individual pages into separate files</div>
+          <button class="btn btn-primary" onclick="document.getElementById('pdfs-input').click()">Browse PDF File</button>
+        </div>
+        <div id="pdfs-info" class="mt16"></div>
+      </div>
+
+      <!-- ROTATE -->
+      <div id="pdf-rotate" class="pdf-panel">
+        <div class="upload-zone" id="pdfr-zone">
+          <input type="file" id="pdfr-input" accept=".pdf" />
+          <div class="uz-icon">🔄</div>
+          <div class="uz-title">Drop a PDF to Rotate</div>
+          <div class="uz-sub">Rotate all pages 90°, 180°, or 270°</div>
+          <button class="btn btn-primary" onclick="document.getElementById('pdfr-input').click()">Browse PDF File</button>
+        </div>
+        <div id="pdfr-info" class="mt16"></div>
+      </div>
+
+      <!-- PDF TO IMAGES -->
+      <div id="pdf-toimg" class="pdf-panel">
+        <div class="upload-zone" id="pdfimg-zone">
+          <input type="file" id="pdfimg-input" accept=".pdf" />
+          <div class="uz-icon">🖼️</div>
+          <div class="uz-title">Drop a PDF to Convert to Images</div>
+          <div class="uz-sub">Each page saved as JPG or PNG</div>
+          <button class="btn btn-primary" onclick="document.getElementById('pdfimg-input').click()">Browse PDF File</button>
+        </div>
+        <div id="pdfimg-info" class="mt16"></div>
+      </div>
+
+      <div class="ad-slot ad-h mt24">📢 Ad · 728×90</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ AUDIO CONVERTER ══════════ -->
+<div id="page-audio-converter" class="page">
+  <div class="inner tool-pg">
+    <div class="tool-pg-inner">
+      <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+      <div class="tool-hdr">
+        <div class="tool-hdr-icon ti-blue">🎵</div>
+        <div><h1>Audio Converter</h1><p>Convert MP3, WAV, OGG, AAC, FLAC in your browser</p></div>
+      </div>
+      <div class="ad-slot ad-h">📢 Ad · 728×90</div>
+      <div class="info-banner">ℹ️ <strong>Powered by FFmpeg.wasm</strong> — Runs 100% in your browser. The FFmpeg library (~20MB) loads on first click of Convert.</div>
+      <div class="upload-zone" id="audio-zone">
+        <input type="file" id="audio-input" accept="audio/*,.mp3,.wav,.ogg,.aac,.flac,.m4a" />
+        <div class="uz-icon">🎵</div>
+        <div class="uz-title">Drop Audio File Here</div>
+        <div class="uz-sub">MP3, WAV, OGG, AAC, FLAC, M4A</div>
+        <button class="btn btn-primary" onclick="document.getElementById('audio-input').click()">Browse Audio File</button>
+      </div>
+      <div id="audio-info" class="mt16"></div>
+      <div class="opts-panel hidden" id="audio-actions">
+        <div class="opts-title">⚙️ Output Format</div>
+        <div class="opts-row">
+          <div class="opt-group">
+            <label class="opt-label">Convert To</label>
+            <select id="audio-format">
+              <option value="mp3">MP3</option>
+              <option value="wav">WAV</option>
+              <option value="ogg">OGG</option>
+              <option value="aac">AAC</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn btn-primary" id="audio-convert-btn">⚡ Convert Audio</button>
+            <p id="audio-status" style="font-size:0.8rem;color:var(--blue);margin-top:8px;font-weight:600"></p>
+          </div>
+        </div>
+      </div>
+      <div class="ad-slot ad-h mt24">📢 Ad · 728×90</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ VIDEO CONVERTER ══════════ -->
+<div id="page-video-converter" class="page">
+  <div class="inner tool-pg">
+    <div class="tool-pg-inner">
+      <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+      <div class="tool-hdr">
+        <div class="tool-hdr-icon ti-purple">🎬</div>
+        <div><h1>Video Converter</h1><p>Convert MP4, AVI, MOV, WebM, MKV and make GIFs</p></div>
+      </div>
+      <div class="ad-slot ad-h">📢 Ad · 728×90</div>
+      <div class="info-banner" style="background:rgba(155,114,247,0.07);border-color:rgba(155,114,247,0.2)">ℹ️ <strong>Browser-based conversion</strong> — Large files may take several minutes. Max 500MB. FFmpeg loads on first use (~20MB).</div>
+      <div class="upload-zone" id="video-zone">
+        <input type="file" id="video-input" accept="video/*" />
+        <div class="uz-icon">🎬</div>
+        <div class="uz-title">Drop Video File Here</div>
+        <div class="uz-sub">MP4, AVI, MOV, MKV, WebM · Max 500MB</div>
+        <button class="btn btn-primary" onclick="document.getElementById('video-input').click()">Browse Video File</button>
+      </div>
+      <div id="video-info" class="mt16"></div>
+      <div class="opts-panel hidden" id="video-actions">
+        <div class="opts-title">⚙️ Output Format</div>
+        <div class="opts-row">
+          <div class="opt-group">
+            <label class="opt-label">Convert To</label>
+            <select id="video-format">
+              <option value="mp4">MP4</option>
+              <option value="webm">WebM</option>
+              <option value="avi">AVI</option>
+              <option value="gif">GIF (Animated)</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn btn-primary" id="video-convert-btn">⚡ Convert Video</button>
+            <p id="video-status" style="font-size:0.8rem;color:var(--blue);margin-top:8px;font-weight:600"></p>
+          </div>
+        </div>
+      </div>
+      <div class="ad-slot ad-h mt24">📢 Ad · 728×90</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ ABOUT ══════════ -->
+<div id="page-about" class="page">
+  <div class="content-pg">
+    <a href="#" class="back-link" data-page="home">← Back</a>
+    <h1>About FileForge</h1>
+    <p class="meta">Free file tools for everyone</p>
+    <div class="content-block"><h3>🚀 What is FileForge?</h3><p>FileForge is a free, browser-based file conversion and compression platform. File conversion should be instant, private, and free — no logins, no paywalls, no limits.</p></div>
+    <div class="content-block"><h3>🔒 Your Privacy Comes First</h3><p>All conversions happen directly in your browser. Your files are never uploaded to any server. We cannot see your files — ever.</p></div>
+    <div class="content-block"><h3>⚡ Powered By</h3><p>PDF-lib for PDF tools, PDF.js for PDF rendering, FFmpeg.wasm for audio/video conversion, and HTML5 Canvas for image processing. All 100% client-side.</p></div>
+    <div class="content-block"><h3>💡 Always Free</h3><p>FileForge is completely free. We show non-intrusive Google AdSense ads to cover costs. No premium plans, no hidden fees, ever.</p></div>
+  </div>
+</div>
+
+<div id="page-privacy" class="page">
+  <div class="content-pg">
+    <a href="#" class="back-link" data-page="home">← Back</a>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: February 2026</p>
+    <div class="content-block"><h3>1. No File Collection</h3><p>All file processing occurs in your browser. We do not upload, store, or transmit your files to any server. Your files never leave your device.</p></div>
+    <div class="content-block"><h3>2. Analytics</h3><p>We may use anonymous analytics (Google Analytics) to understand usage. No file content or personal data is collected.</p></div>
+    <div class="content-block"><h3>3. Advertising</h3><p>We display Google AdSense advertisements. Google may use cookies to serve relevant ads. Opt out at adssettings.google.com.</p></div>
+    <div class="content-block"><h3>4. Contact</h3><p>Questions? Contact: privacy@fileforge.app</p></div>
+  </div>
+</div>
+
+<div id="page-terms" class="page">
+  <div class="content-pg">
+    <a href="#" class="back-link" data-page="home">← Back</a>
+    <h1>Terms of Service</h1>
+    <p class="meta">Last updated: February 2026</p>
+    <div class="content-block"><h3>1. Acceptable Use</h3><p>Use FileForge for personal and commercial purposes. Do not use it for illegal content or to harm others.</p></div>
+    <div class="content-block"><h3>2. No Warranty</h3><p>FileForge is provided "as is". Always keep backups of important files before converting.</p></div>
+    <div class="content-block"><h3>3. Your Content</h3><p>You retain full ownership of your files. We claim no rights over your content.</p></div>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo" data-page="home"><div class="logo-bolt">⚡</div> File<span>Forge</span></a>
+      <p>Free online file converter and compressor. 100% browser-based. Your files stay private on your device.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Image Tools</h4>
+      <a href="#" onclick="App.showPage('image-converter')">Image Converter</a>
+      <a href="#" onclick="App.showPage('image-compressor')">Image Compressor</a>
+      <a href="#" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/jpeg'">PNG to JPG</a>
+      <a href="#" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/png'">JPG to PNG</a>
+      <a href="#" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/webp'">To WebP</a>
+    </div>
+    <div class="footer-col">
+      <h4>PDF Tools</h4>
+      <a href="#" onclick="App.showPage('pdf-tools')">Compress PDF</a>
+      <a href="#" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=merge]')?.click(),50)">Merge PDFs</a>
+      <a href="#" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=split]')?.click(),50)">Split PDF</a>
+      <a href="#" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=rotate]')?.click(),50)">Rotate PDF</a>
+      <a href="#" onclick="App.showPage('pdf-tools');setTimeout(()=>document.querySelector('[data-panel=toimg]')?.click(),50)">PDF to Images</a>
+    </div>
+    <div class="footer-col">
+      <h4>More</h4>
+      <a href="#" onclick="App.showPage('audio-converter')">Audio Converter</a>
+      <a href="#" onclick="App.showPage('video-converter')">Video Converter</a>
+      <a href="#" data-page="about">About Us</a>
+      <a href="#" data-page="privacy">Privacy Policy</a>
+      <a href="#" data-page="terms">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 FileForge. All file conversions processed locally in your browser.</p>
+    <div class="footer-links">
+      <a href="#" data-page="about">About</a>
+      <a href="#" data-page="privacy">Privacy</a>
+      <a href="#" data-page="terms">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon">✅</span>
+  <span class="toast-msg" id="toast-msg"></span>
+</div>
+
+<script>
+// ─── UTILS ───
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+function formatSize(bytes) {
+  if (!bytes) return '0 B';
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1048576).toFixed(2) + ' MB';
+}
+
+function showToast(msg, icon = '✅') {
+  const t = $('#toast');
+  $('#toast-icon').textContent = icon;
+  $('#toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3800);
+}
+
+function makeDropZone(zone, input, onFiles) {
+  if (!zone || !input) return;
+  zone.addEventListener('click', e => { if (e.target.tagName !== 'BUTTON') input.click(); });
+  let dc = 0;
+  zone.addEventListener('dragenter', e => { e.preventDefault(); dc++; zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => { dc--; if (dc === 0) zone.classList.remove('dragover'); });
+  zone.addEventListener('dragover', e => e.preventDefault());
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); dc = 0; zone.classList.remove('dragover');
+    const files = [...e.dataTransfer.files];
+    if (files.length) onFiles(files);
+  });
+  input.addEventListener('change', () => {
+    if (input.files.length) { onFiles([...input.files]); input.value = ''; }
+  });
+}
+
+function downloadBlob(blob, filename) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+// ─── APP ROUTER ───
+const App = {
+  theme: localStorage.getItem('ff-theme') || 'dark',
+
+  init() {
+    this.applyTheme(this.theme);
+    $('#themeBtn').addEventListener('click', () => this.applyTheme(this.theme === 'dark' ? 'light' : 'dark'));
+    $('#hamburger').addEventListener('click', () => $('#mobileMenu').classList.toggle('open'));
+    $$('[data-page]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        this.showPage(el.dataset.page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        $('#mobileMenu').classList.remove('open');
+      });
+    });
+    $$('.tab[data-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('.tab[data-cat]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        $$('.tool-card').forEach(c => { c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none'; });
+      });
+    });
+    const hash = location.hash.replace('#', '');
+    this.showPage(hash || 'home');
+  },
+
+  applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    this.theme = t;
+    localStorage.setItem('ff-theme', t);
+    $('#themeBtn').textContent = t === 'dark' ? '☀️' : '🌙';
+  },
+
+  showPage(id) {
+    $$('.page').forEach(p => p.classList.remove('active'));
+    const page = $(`#page-${id}`);
+    if (page) page.classList.add('active');
+    $$('[data-page]').forEach(a => { if (a.tagName === 'A') a.classList.toggle('active', a.dataset.page === id); });
+    location.hash = id === 'home' ? '' : id;
+  }
+};
+
+// ─── IMAGE CONVERTER ───
+const ImageConverter = {
+  files: [], results: [],
+  init() {
+    makeDropZone($('#img-zone'), $('#img-input'), f => this.addFiles(f));
+    $('#img-convert-btn')?.addEventListener('click', () => this.convertAll());
+    $('#img-download-btn')?.addEventListener('click', () => this.downloadAll());
+    $('#img-clear-btn')?.addEventListener('click', () => this.clear());
+    const sl = $('#img-quality'), vl = $('#img-quality-val');
+    sl?.addEventListener('input', () => { if (vl) vl.textContent = sl.value + '%'; });
+  },
+  addFiles(incoming) {
+    const valid = incoming.filter(f => f.type.startsWith('image/'));
+    if (!valid.length) { showToast('Upload image files (JPG, PNG, WebP, GIF, BMP)', '⚠️'); return; }
+    this.files.push(...valid); this.render();
+    $('#img-actions')?.classList.remove('hidden');
+    $('#img-download-btn')?.classList.add('hidden');
+    showToast(`${valid.length} image(s) added`, '🖼️');
+  },
+  render() {
+    const list = $('#img-file-list'); if (!list) return;
+    list.innerHTML = '';
+    this.files.forEach((f, i) => {
+      const div = document.createElement('div'); div.className = 'file-item';
+      const url = URL.createObjectURL(f);
+      div.innerHTML = `<div class="f-thumb"><img src="${url}" alt="" onload="URL.revokeObjectURL(this.src)" /></div>
+        <div class="f-info"><div class="f-name">${f.name}</div><div class="f-meta">${formatSize(f.size)} · ${f.type.split('/')[1]?.toUpperCase()}</div></div>
+        <div class="f-status" id="img-st-${i}"><span class="s-wait">Waiting</span></div>
+        <button class="f-rm" onclick="ImageConverter.remove(${i})">✕</button>`;
+      list.appendChild(div);
+    });
+  },
+  remove(i) { this.files.splice(i, 1); this.render(); if (!this.files.length) $('#img-actions')?.classList.add('hidden'); },
+  clear() {
+    this.files = []; this.results = [];
+    $('#img-file-list').innerHTML = '';
+    $('#img-actions')?.classList.add('hidden');
+    $('#img-download-btn')?.classList.add('hidden');
+  },
+  async convertAll() {
+    const fmt = $('#img-format')?.value || 'image/png';
+    const q = parseInt($('#img-quality')?.value || 85) / 100;
+    const ext = fmt === 'image/jpeg' ? 'jpg' : fmt.split('/')[1];
+    this.results = [];
+    for (let i = 0; i < this.files.length; i++) {
+      const st = $(`#img-st-${i}`);
+      if (st) st.innerHTML = '<span class="s-proc">Converting…</span>';
+      try {
+        const blob = await this.doConvert(this.files[i], fmt, q);
+        const name = this.files[i].name.replace(/\.[^.]+$/, '') + '.' + ext;
+        this.results.push({ blob, name });
+        const saved = Math.round((1 - blob.size / this.files[i].size) * 100);
+        if (st) st.innerHTML = `<span class="s-done">✓ ${formatSize(blob.size)} ${saved > 0 ? '(-' + saved + '%)' : ''}</span>`;
+      } catch { if (st) st.innerHTML = '<span class="s-err">✕ Failed</span>'; }
+    }
+    $('#img-download-btn')?.classList.remove('hidden');
+    showToast('All images converted! 🎉');
+  },
+  doConvert(file, fmt, quality) {
+    return new Promise((res, rej) => {
+      const img = new Image(), url = URL.createObjectURL(file);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        if (fmt === 'image/jpeg') { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+        canvas.toBlob(b => b ? res(b) : rej(new Error('Failed')), fmt, quality);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('Load failed')); };
+      img.src = url;
+    });
+  },
+  downloadAll() { this.results.forEach(({ blob, name }) => downloadBlob(blob, name)); }
+};
+
+// ─── IMAGE COMPRESSOR ───
+const ImageCompressor = {
+  files: [], results: [],
+  init() {
+    makeDropZone($('#imgc-zone'), $('#imgc-input'), f => this.addFiles(f));
+    $('#imgc-compress-btn')?.addEventListener('click', () => this.compressAll());
+    $('#imgc-download-btn')?.addEventListener('click', () => this.downloadAll());
+    $('#imgc-clear-btn')?.addEventListener('click', () => this.clear());
+    const sl = $('#imgc-quality'), vl = $('#imgc-quality-val');
+    sl?.addEventListener('input', () => { if (vl) vl.textContent = sl.value + '%'; });
+  },
+  addFiles(incoming) {
+    const valid = incoming.filter(f => f.type.match(/image\/(jpeg|png|webp)/));
+    if (!valid.length) { showToast('Upload JPG, PNG, or WebP images', '⚠️'); return; }
+    this.files.push(...valid); this.render();
+    $('#imgc-actions')?.classList.remove('hidden');
+    $('#imgc-download-btn')?.classList.add('hidden');
+    showToast(`${valid.length} image(s) ready`, '🗜️');
+  },
+  render() {
+    const list = $('#imgc-file-list'); if (!list) return;
+    list.innerHTML = '';
+    this.files.forEach((f, i) => {
+      const div = document.createElement('div'); div.className = 'file-item';
+      const url = URL.createObjectURL(f);
+      div.innerHTML = `<div class="f-thumb"><img src="${url}" alt="" onload="URL.revokeObjectURL(this.src)" /></div>
+        <div class="f-info"><div class="f-name">${f.name}</div><div class="f-meta">${formatSize(f.size)}</div></div>
+        <div class="f-status" id="imgc-st-${i}"><span class="s-wait">Waiting</span></div>
+        <button class="f-rm" onclick="ImageCompressor.remove(${i})">✕</button>`;
+      list.appendChild(div);
+    });
+  },
+  remove(i) { this.files.splice(i, 1); this.render(); if (!this.files.length) $('#imgc-actions')?.classList.add('hidden'); },
+  clear() { this.files = []; this.results = []; $('#imgc-file-list').innerHTML = ''; $('#imgc-actions')?.classList.add('hidden'); $('#imgc-download-btn')?.classList.add('hidden'); },
+  async compressAll() {
+    const q = parseInt($('#imgc-quality')?.value || 72) / 100;
+    this.results = [];
+    for (let i = 0; i < this.files.length; i++) {
+      const st = $(`#imgc-st-${i}`);
+      if (st) st.innerHTML = '<span class="s-proc">Compressing…</span>';
+      const fmt = this.files[i].type === 'image/png' ? 'image/png' : 'image/jpeg';
+      const blob = await ImageConverter.doConvert(this.files[i], fmt, q);
+      const saved = Math.max(0, Math.round((1 - blob.size / this.files[i].size) * 100));
+      this.results.push({ blob, name: 'compressed_' + this.files[i].name });
+      if (st) st.innerHTML = `<span class="s-done">✓ -${saved}% → ${formatSize(blob.size)}</span>`;
+    }
+    $('#imgc-download-btn')?.classList.remove('hidden');
+    showToast('Compression complete! 🗜️');
+  },
+  downloadAll() { this.results.forEach(({ blob, name }) => downloadBlob(blob, name)); }
+};
+
+// ─── PDF TOOLS ───
+const PDFTools = {
+  mergeFiles: [],
+  init() {
+    $$('.pdf-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('.pdf-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        $$('.pdf-panel').forEach(p => p.classList.remove('active'));
+        $(`#pdf-${btn.dataset.panel}`)?.classList.add('active');
+      });
+    });
+    this.initCompress(); this.initMerge(); this.initSplit(); this.initRotate(); this.initToImages();
+  },
+  initCompress() { makeDropZone($('#pdfc-zone'), $('#pdfc-input'), f => this.handleCompress(f)); },
+  handleCompress(files) {
+    const valid = files.filter(f => f.name.toLowerCase().endsWith('.pdf') || f.type === 'application/pdf');
+    if (!valid.length) { showToast('Please upload PDF files', '⚠️'); return; }
+    const list = $('#pdfc-list'); if (!list) return;
+    list.innerHTML = valid.map(f => {
+      const url = URL.createObjectURL(f);
+      return `<div class="file-item">
+        <div class="f-thumb">📄</div>
+        <div class="f-info"><div class="f-name">${f.name}</div><div class="f-meta">${formatSize(f.size)}</div></div>
+        <button class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem" onclick="PDFTools.compressPDF('${url}','${f.name}',${f.size})">🗜️ Compress</button>
+      </div>`;
+    }).join('');
+    showToast(`${valid.length} PDF(s) loaded`, '📄');
+  },
+  async compressPDF(url, name, origSize) {
+    showToast('Compressing PDF…', '⏳');
+    try {
+      const { PDFDocument } = PDFLib;
+      const bytes = await (await fetch(url)).arrayBuffer();
+      const doc = await PDFDocument.load(bytes, { ignoreEncryption: true });
+      const out = await doc.save({ useObjectStreams: false });
+      const blob = new Blob([out], { type: 'application/pdf' });
+      const saved = Math.max(0, Math.round((1 - blob.size / origSize) * 100));
+      downloadBlob(blob, 'compressed_' + name);
+      showToast(`Done! Saved ~${saved}% · ${formatSize(blob.size)} 🎉`);
+    } catch { showToast('Compression failed. Try a different PDF.', '❌'); }
+  },
+  initMerge() {
+    makeDropZone($('#pdfm-zone'), $('#pdfm-input'), files => {
+      this.mergeFiles.push(...files.filter(f => f.name.toLowerCase().endsWith('.pdf')));
+      this.renderMerge();
+    });
+    $('#pdfm-merge-btn')?.addEventListener('click', () => this.doMerge());
+  },
+  renderMerge() {
+    const list = $('#pdfm-list'); if (!list) return;
+    list.innerHTML = this.mergeFiles.map((f, i) => `
+      <div class="file-item">
+        <div class="f-thumb">📄</div>
+        <div class="f-info"><div class="f-name">${f.name}</div><div class="f-meta">${formatSize(f.size)}</div></div>
+        <button class="f-rm" onclick="PDFTools.mergeFiles.splice(${i},1);PDFTools.renderMerge()">✕</button>
+      </div>`).join('');
+    const btn = $('#pdfm-merge-btn');
+    if (btn) btn.classList.toggle('hidden', this.mergeFiles.length < 2);
+  },
+  async doMerge() {
+    if (this.mergeFiles.length < 2) { showToast('Add at least 2 PDFs', '⚠️'); return; }
+    showToast('Merging PDFs…', '⏳');
+    try {
+      const { PDFDocument } = PDFLib;
+      const merged = await PDFDocument.create();
+      for (const f of this.mergeFiles) {
+        const doc = await PDFDocument.load(await f.arrayBuffer(), { ignoreEncryption: true });
+        const pages = await merged.copyPages(doc, doc.getPageIndices());
+        pages.forEach(p => merged.addPage(p));
+      }
+      downloadBlob(new Blob([await merged.save()], { type: 'application/pdf' }), 'merged.pdf');
+      showToast('PDFs merged! 🎉');
+    } catch { showToast('Merge failed', '❌'); }
+  },
+  initSplit() { makeDropZone($('#pdfs-zone'), $('#pdfs-input'), f => this.loadSplit(f[0])); },
+  async loadSplit(file) {
+    if (!file?.name.toLowerCase().endsWith('.pdf')) { showToast('Upload a PDF file', '⚠️'); return; }
+    const bytes = await file.arrayBuffer();
+    const doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+    const total = doc.getPageCount();
+    const info = $('#pdfs-info'); if (!info) return;
+    info.innerHTML = `<div class="file-item" style="margin-bottom:14px">
+        <div class="f-thumb">📄</div>
+        <div class="f-info"><div class="f-name">${file.name}</div><div class="f-meta">${total} pages · ${formatSize(file.size)}</div></div>
+      </div>
+      <div class="opts-panel"><div class="opts-title">✂️ Split Options</div><div class="opts-row">
+        <button class="btn btn-primary" onclick="PDFTools.splitAll('${URL.createObjectURL(file)}',${total},'${file.name}')">✂️ Split All Pages (${total} files)</button>
+      </div></div>`;
+    showToast(`${total} pages loaded`, '📑');
+  },
+  async splitAll(url, total, name) {
+    showToast(`Splitting ${total} pages…`, '⏳');
+    try {
+      const { PDFDocument } = PDFLib;
+      const bytes = await (await fetch(url)).arrayBuffer();
+      const doc = await PDFDocument.load(bytes);
+      for (let i = 0; i < total; i++) {
+        const nd = await PDFDocument.create();
+        const [p] = await nd.copyPages(doc, [i]);
+        nd.addPage(p);
+        downloadBlob(new Blob([await nd.save()], { type: 'application/pdf' }), `${name.replace('.pdf','')}-page-${i+1}.pdf`);
+        await new Promise(r => setTimeout(r, 350));
+      }
+      showToast('All pages split! 🎉');
+    } catch { showToast('Split failed', '❌'); }
+  },
+  initRotate() { makeDropZone($('#pdfr-zone'), $('#pdfr-input'), f => this.loadRotate(f[0])); },
+  loadRotate(file) {
+    if (!file?.name.toLowerCase().endsWith('.pdf')) { showToast('Upload a PDF file', '⚠️'); return; }
+    const info = $('#pdfr-info'); if (!info) return;
+    const url = URL.createObjectURL(file);
+    info.innerHTML = `<div class="file-item" style="margin-bottom:14px">
+        <div class="f-thumb">📄</div>
+        <div class="f-info"><div class="f-name">${file.name}</div><div class="f-meta">${formatSize(file.size)}</div></div>
+      </div>
+      <div class="opts-panel"><div class="opts-title">🔄 Rotation</div><div class="opts-row">
+        <div class="opt-group"><label class="opt-label">Rotate By</label>
+          <select id="rotate-deg"><option value="90">90° Clockwise</option><option value="180">180°</option><option value="270">270° Counter-clockwise</option></select></div>
+        <button class="btn btn-primary" onclick="PDFTools.rotatePDF('${url}','${file.name}')">🔄 Rotate & Download</button>
+      </div></div>`;
+  },
+  async rotatePDF(url, name) {
+    showToast('Rotating…', '⏳');
+    try {
+      const { PDFDocument, degrees } = PDFLib;
+      const deg = parseInt($('#rotate-deg')?.value || 90);
+      const bytes = await (await fetch(url)).arrayBuffer();
+      const doc = await PDFDocument.load(bytes, { ignoreEncryption: true });
+      doc.getPages().forEach(p => p.setRotation(degrees((p.getRotation().angle + deg) % 360)));
+      downloadBlob(new Blob([await doc.save()], { type: 'application/pdf' }), 'rotated_' + name);
+      showToast('Rotated! 🎉');
+    } catch { showToast('Rotation failed', '❌'); }
+  },
+  initToImages() { makeDropZone($('#pdfimg-zone'), $('#pdfimg-input'), f => this.loadToImages(f[0])); },
+  loadToImages(file) {
+    if (!file?.name.toLowerCase().endsWith('.pdf')) { showToast('Upload a PDF file', '⚠️'); return; }
+    const info = $('#pdfimg-info'); if (!info) return;
+    const url = URL.createObjectURL(file);
+    info.innerHTML = `<div class="file-item" style="margin-bottom:14px">
+        <div class="f-thumb">📄</div>
+        <div class="f-info"><div class="f-name">${file.name}</div><div class="f-meta">${formatSize(file.size)}</div></div>
+      </div>
+      <div class="opts-panel"><div class="opts-title">🖼️ Output Settings</div><div class="opts-row">
+        <div class="opt-group"><label class="opt-label">Format</label>
+          <select id="pdfimg-fmt"><option value="jpeg">JPG</option><option value="png">PNG</option></select></div>
+        <button class="btn btn-primary" onclick="PDFTools.convertToImages('${url}','${file.name}')">🖼️ Convert to Images</button>
+      </div></div>`;
+  },
+  async convertToImages(url, name) {
+    if (typeof pdfjsLib === 'undefined') { showToast('PDF renderer loading, try again shortly', '⏳'); return; }
+    showToast('Converting pages…', '⏳');
+    try {
+      const fmt = $('#pdfimg-fmt')?.value || 'jpeg';
+      const bytes = await (await fetch(url)).arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const vp = page.getViewport({ scale: 2 });
+        const canvas = document.createElement('canvas');
+        canvas.width = vp.width; canvas.height = vp.height;
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+        await new Promise(res => canvas.toBlob(blob => { downloadBlob(blob, `${name.replace('.pdf','')}-page-${i}.${fmt}`); setTimeout(res, 400); }, 'image/' + fmt, 0.92));
+      }
+      showToast('All pages converted! 🎉');
+    } catch(e) { showToast('Conversion failed: ' + e.message, '❌'); }
+  }
+};
+
+// ─── AUDIO CONVERTER ───
+const AudioConverter = {
+  file: null, ffmpegLoaded: false, ffmpegLoading: false,
+  init() {
+    makeDropZone($('#audio-zone'), $('#audio-input'), f => this.loadFile(f[0]));
+    $('#audio-convert-btn')?.addEventListener('click', () => this.convert());
+  },
+  loadFile(file) {
+    if (!file || (!file.type.startsWith('audio/') && !/\.(mp3|wav|ogg|aac|flac|m4a|opus|wma)$/i.test(file.name))) {
+      showToast('Upload audio: MP3, WAV, OGG, AAC, FLAC, M4A', '⚠️'); return;
+    }
+    this.file = file;
+    const info = $('#audio-info'); if (!info) return;
+    const url = URL.createObjectURL(file);
+    info.innerHTML = `<div class="file-item">
+        <div class="f-thumb">🎵</div>
+        <div class="f-info"><div class="f-name">${file.name}</div><div class="f-meta">${formatSize(file.size)}</div></div>
+      </div>
+      <audio controls src="${url}" style="width:100%;margin-top:12px;border-radius:10px"></audio>`;
+    $('#audio-actions')?.classList.remove('hidden');
+    showToast('Audio loaded', '🎵');
+  },
+  async loadFFmpeg() {
+    if (this.ffmpegLoaded) return true;
+    if (this.ffmpegLoading) { showToast('FFmpeg still loading…', '⏳'); return false; }
+    this.ffmpegLoading = true;
+    showToast('Loading FFmpeg converter (~20MB)…', '⏳');
+    try {
+      if (typeof FFmpeg === 'undefined') {
+        await new Promise((res, rej) => {
+          const s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
+          s.onload = res;
+          s.onerror = () => {
+            const s2 = document.createElement('script');
+            s2.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
+            s2.onload = res; s2.onerror = rej;
+            document.head.appendChild(s2);
+          };
+          document.head.appendChild(s);
+        });
+      }
+      const { createFFmpeg } = FFmpeg;
+      this._ff = createFFmpeg({ log: false, corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+      await this._ff.load();
+      this.ffmpegLoaded = true; this.ffmpegLoading = false;
+      showToast('FFmpeg ready!', '✅'); return true;
+    } catch { this.ffmpegLoading = false; return false; }
+  },
+  async convert() {
+    if (!this.file) { showToast('Please upload an audio file first', '⚠️'); return; }
+    const format = $('#audio-format')?.value || 'mp3';
+    const loaded = await this.loadFFmpeg();
+    if (!loaded) { downloadBlob(this.file, this.file.name.replace(/\.[^.]+$/, '') + '.' + format); showToast('Downloaded (FFmpeg needed for full conversion)', 'ℹ️'); return; }
+    try {
+      const st = $('#audio-status'); if (st) st.textContent = '⚡ Converting…';
+      const ext = this.file.name.split('.').pop().toLowerCase();
+      const inName = `input.${ext}`, outName = `output.${format}`;
+      this._ff.FS('writeFile', inName, await FFmpeg.fetchFile(this.file));
+      let args = ['-i', inName];
+      if (format === 'mp3') args.push('-codec:a', 'libmp3lame', '-q:a', '2');
+      else if (format === 'ogg') args.push('-codec:a', 'libvorbis', '-q:a', '4');
+      else if (format === 'aac') args.push('-codec:a', 'aac', '-b:a', '192k');
+      else args.push('-codec:a', 'pcm_s16le');
+      args.push(outName);
+      await this._ff.run(...args);
+      const data = this._ff.FS('readFile', outName);
+      const mimes = { mp3:'audio/mpeg', wav:'audio/wav', ogg:'audio/ogg', aac:'audio/aac' };
+      downloadBlob(new Blob([data.buffer], { type: mimes[format] || 'audio/' + format }), this.file.name.replace(/\.[^.]+$/, '') + '.' + format);
+      if (st) st.textContent = '';
+      showToast('Audio converted! 🎉');
+    } catch(e) { const st = $('#audio-status'); if (st) st.textContent = ''; showToast('Conversion failed. Try MP3 or WAV.', '❌'); }
+  }
+};
+
+// ─── VIDEO CONVERTER ───
+const VideoConverter = {
+  file: null, ffmpegLoaded: false, ffmpegLoading: false,
+  init() {
+    makeDropZone($('#video-zone'), $('#video-input'), f => this.loadFile(f[0]));
+    $('#video-convert-btn')?.addEventListener('click', () => this.convert());
+  },
+  loadFile(file) {
+    if (!file || !file.type.startsWith('video/')) { showToast('Upload a video file (MP4, AVI, MOV, MKV, WebM)', '⚠️'); return; }
+    if (file.size > 500 * 1024 * 1024) { showToast('Max 500MB for browser conversion.', '⚠️'); return; }
+    this.file = file;
+    const info = $('#video-info'); if (!info) return;
+    const url = URL.createObjectURL(file);
+    info.innerHTML = `<div class="file-item">
+        <div class="f-thumb">🎬</div>
+        <div class="f-info"><div class="f-name">${file.name}</div><div class="f-meta">${formatSize(file.size)}</div></div>
+      </div>
+      <video controls src="${url}" style="width:100%;border-radius:12px;margin-top:12px;max-height:240px" preload="metadata"></video>`;
+    $('#video-actions')?.classList.remove('hidden');
+    showToast('Video loaded', '🎬');
+  },
+  async loadFFmpeg() {
+    if (this.ffmpegLoaded) return true;
+    if (this.ffmpegLoading) { showToast('FFmpeg still loading…', '⏳'); return false; }
+    this.ffmpegLoading = true;
+    showToast('Loading FFmpeg (~20MB first time)…', '⏳');
+    try {
+      if (typeof FFmpeg === 'undefined') {
+        await new Promise((res, rej) => {
+          const s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
+          s.onload = res;
+          s.onerror = () => { const s2 = document.createElement('script'); s2.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js'; s2.onload = res; s2.onerror = rej; document.head.appendChild(s2); };
+          document.head.appendChild(s);
+        });
+      }
+      const { createFFmpeg } = FFmpeg;
+      this._ff = createFFmpeg({ log: false, corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js',
+        progress: ({ ratio }) => { const el = $('#video-status'); if (el) el.textContent = `⚡ Converting: ${Math.round(ratio * 100)}%`; }
+      });
+      await this._ff.load();
+      this.ffmpegLoaded = true; this.ffmpegLoading = false; return true;
+    } catch { this.ffmpegLoading = false; return false; }
+  },
+  async convert() {
+    if (!this.file) { showToast('Please upload a video file first', '⚠️'); return; }
+    const format = $('#video-format')?.value || 'mp4';
+    const loaded = await this.loadFFmpeg();
+    if (!loaded) { showToast('FFmpeg failed to load. Try Chrome.', '❌'); return; }
+    const st = $('#video-status');
+    try {
+      if (st) st.textContent = '⚡ Starting…';
+      const ext = this.file.name.split('.').pop().toLowerCase();
+      this._ff.FS('writeFile', `in.${ext}`, await FFmpeg.fetchFile(this.file));
+      let args;
+      if (format === 'gif') args = ['-i', `in.${ext}`, '-vf', 'fps=12,scale=480:-1:flags=lanczos', '-loop', '0', 'out.gif'];
+      else if (format === 'webm') args = ['-i', `in.${ext}`, '-c:v', 'libvpx', '-b:v', '1M', '-c:a', 'libvorbis', 'out.webm'];
+      else args = ['-i', `in.${ext}`, '-c:v', 'libx264', '-preset', 'fast', '-crf', '28', '-c:a', 'aac', '-movflags', '+faststart', `out.${format}`];
+      await this._ff.run(...args);
+      const data = this._ff.FS('readFile', `out.${format}`);
+      downloadBlob(new Blob([data.buffer], { type: format === 'gif' ? 'image/gif' : `video/${format}` }), this.file.name.replace(/\.[^.]+$/, '') + '.' + format);
+      if (st) st.textContent = '';
+      showToast('Video converted! 🎉');
+    } catch(e) { if (st) st.textContent = ''; showToast('Conversion failed. Large files may need desktop software.', '❌'); }
+  }
+};
+
+// ─── BOOT ───
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+  ImageConverter.init();
+  ImageCompressor.init();
+  PDFTools.init();
+  AudioConverter.init();
+  VideoConverter.init();
+});
+</script>
+</body>
+</html>

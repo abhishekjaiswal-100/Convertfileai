@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FileForge – Free Online File Converter & Compressor</title>
+  <meta name="description" content="Convert and compress images, PDFs, audio, video, documents free online. JPG, PNG, WebP, PDF, MP3, MP4, DOCX and 30+ formats. No signup. 100% browser-based." />
+  <meta name="keywords" content="file converter, image converter, pdf compressor, jpg to png, compress pdf, webp converter, audio converter, video converter, docx to pdf, free online tools" />
+  <meta property="og:title" content="FileForge – Free File Converter & Compressor" />
+  <meta property="og:description" content="Convert & compress 30+ file formats free in your browser. Images, PDF, Audio, Video. No uploads, no signup." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://yourdomain.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Google AdSense — Replace after approval -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" data-page="home">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">File<span>Forge</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" data-page="home">Home</a></li>
+      <li><a href="#" data-page="image-converter">Images</a></li>
+      <li><a href="#" data-page="pdf-tools">PDF</a></li>
+      <li><a href="#" data-page="audio-converter">Audio</a></li>
+      <li><a href="#" data-page="video-converter">Video</a></li>
+      <li><a href="#" data-page="about">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <div class="toggle-knob">☀️</div>
+      </button>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════
+     HOME PAGE
+══════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero - Full Width -->
+  <section class="hero">
+    <div class="hero-badge"><div class="badge-dot"></div>100% Free · No Signup · Runs in Your Browser</div>
+    <h1>Convert & Compress<br><span class="gradient-text">Any File Format</span></h1>
+    <p>Transform images, PDFs, audio, and video instantly in your browser. Your files never leave your device — fast, private, and completely free.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Formats Supported</span></div>
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Browser-Based</span></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Files Sent to Server</span></div>
+      <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
+    </div>
+  </section>
+
+  <!-- Supported Formats -->
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px 20px">
+    <div class="formats-section">
+      <div class="formats-title">Supported Formats</div>
+      <div class="formats-list">
+        <span class="format-tag">PDF</span><span class="format-tag">DOCX</span><span class="format-tag">PPT</span>
+        <span class="format-tag">PPTX</span><span class="format-tag">XLS</span><span class="format-tag">XLSX</span>
+        <span class="format-tag">JPG</span><span class="format-tag">PNG</span><span class="format-tag">WebP</span>
+        <span class="format-tag">SVG</span><span class="format-tag">HEIC</span><span class="format-tag">AVIF</span>
+        <span class="format-tag">GIF</span><span class="format-tag">BMP</span><span class="format-tag">TIFF</span>
+        <span class="format-tag">MP4</span><span class="format-tag">MKV</span><span class="format-tag">MOV</span>
+        <span class="format-tag">AVI</span><span class="format-tag">WebM</span><span class="format-tag">MP3</span>
+        <span class="format-tag">WAV</span><span class="format-tag">FLAC</span><span class="format-tag">AAC</span>
+        <span class="format-tag">OGG</span><span class="format-tag">ZIP</span><span class="format-tag">RAR</span>
+        <span class="format-tag">CSV</span><span class="format-tag">HTML</span><span class="format-tag">TXT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tools + Sidebar Layout -->
+  <section class="section">
+    <div class="page-layout">
+
+      <!-- Main Tools Content -->
+      <div class="page-content">
+        <div class="section-header">
+          <h2 class="section-title">All Conversion Tools</h2>
+          <p class="section-sub">No account needed. Pick a tool and convert instantly.</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" data-cat="all">🌟 All Tools</button>
+          <button class="tab-btn" data-cat="image">🖼️ Images</button>
+          <button class="tab-btn" data-cat="pdf">📄 PDF</button>
+          <button class="tab-btn" data-cat="audio">🎵 Audio</button>
+          <button class="tab-btn" data-cat="video">🎬 Video</button>
+        </div>
+
+        <!-- Ad Banner -->
+        <div class="ad-slot ad-banner">
+          📢 Advertisement · 728×90
+          <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+
+          <!-- IMAGE TOOLS -->
+          <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter')">
+            <div class="tool-icon icon-blue">🔄</div>
+            <span class="tool-badge badge-image">🖼️ Image</span>
+            <div class="tool-name">Image Format Converter</div>
+            <div class="tool-desc">Convert JPG, PNG, WebP, GIF, BMP between any format. Batch supported.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="image" onclick="App.showPage('image-compressor')">
+            <div class="tool-icon icon-green">🗜️</div>
+            <span class="tool-badge badge-image">🖼️ Image</span>
+            <div class="tool-name">Image Compressor</div>
+            <div class="tool-desc">Reduce image file size up to 90% without visible quality loss.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/jpeg'">
+            <div class="tool-icon icon-blue">🔵</div>
+            <span class="tool-badge badge-image">🖼️ Image</span>
+            <div class="tool-name">PNG to JPG</div>
+            <div class="tool-desc">Convert PNG images to JPG format instantly. Smaller file size.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/png'">
+            <div class="tool-icon icon-indigo">🟣</div>
+            <span class="tool-badge badge-image">🖼️ Image</span>
+            <div class="tool-name">JPG to PNG</div>
+            <div class="tool-desc">Convert JPG/JPEG to PNG with full transparency support.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="image" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/webp'">
+            <div class="tool-icon icon-teal">🌐</div>
+            <span class="tool-badge badge-image">🖼️ Image</span>
+            <div class="tool-name">Convert to WebP</div>
+            <div class="tool-desc">Modern web format. Smaller than JPG/PNG, faster loading.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <!-- PDF TOOLS -->
+          <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools')">
+            <div class="tool-icon icon-pink">📄</div>
+            <span class="tool-badge badge-pdf">📄 PDF</span>
+            <div class="tool-name">PDF Compressor</div>
+            <div class="tool-desc">Reduce PDF file size while maintaining quality. Perfect for email.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=merge]')?.click()">
+            <div class="tool-icon icon-pink">🔗</div>
+            <span class="tool-badge badge-pdf">📄 PDF</span>
+            <div class="tool-name">Merge PDFs</div>
+            <div class="tool-desc">Combine multiple PDF files into one document in seconds.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=split]')?.click()">
+            <div class="tool-icon icon-pink">✂️</div>
+            <span class="tool-badge badge-pdf">📄 PDF</span>
+            <div class="tool-name">Split PDF</div>
+            <div class="tool-desc">Split into individual pages or extract specific page ranges.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=rotate]')?.click()">
+            <div class="tool-icon icon-orange">🔄</div>
+            <span class="tool-badge badge-pdf">📄 PDF</span>
+            <div class="tool-name">Rotate PDF</div>
+            <div class="tool-desc">Rotate all pages 90°, 180°, or 270° with one click.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <div class="tool-card" data-cat="pdf" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=toimg]')?.click()">
+            <div class="tool-icon icon-purple">🖼️</div>
+            <span class="tool-badge badge-pdf">📄 PDF</span>
+            <div class="tool-name">PDF to Images</div>
+            <div class="tool-desc">Convert each PDF page into a high-quality JPG or PNG image.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <!-- AUDIO TOOLS -->
+          <div class="tool-card" data-cat="audio" onclick="App.showPage('audio-converter')">
+            <div class="tool-icon icon-indigo">🎵</div>
+            <span class="tool-badge badge-audio">🎵 Audio</span>
+            <div class="tool-name">Audio Converter</div>
+            <div class="tool-desc">Convert MP3, WAV, OGG, AAC, FLAC between formats.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+          <!-- VIDEO TOOLS -->
+          <div class="tool-card" data-cat="video" onclick="App.showPage('video-converter')">
+            <div class="tool-icon icon-purple">🎬</div>
+            <span class="tool-badge badge-video">🎬 Video</span>
+            <div class="tool-name">Video Converter</div>
+            <div class="tool-desc">Convert MP4, AVI, MOV, WebM, MKV. Make GIFs from video.</div>
+            <div class="tool-arrow">→</div>
+          </div>
+
+        </div><!-- end tools-grid -->
+
+        <!-- How It Works -->
+        <div style="margin-top:60px">
+          <div class="section-header">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-sub">Convert any file in 3 simple steps</p>
+          </div>
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-num">1</div>
+              <div class="step-title">Upload Your File</div>
+              <div class="step-desc">Drag & drop or click to browse. Works with all popular formats.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">2</div>
+              <div class="step-title">Choose Settings</div>
+              <div class="step-desc">Pick output format, quality, and options. Simple and easy.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">3</div>
+              <div class="step-title">Download Result</div>
+              <div class="step-desc">Conversion happens instantly. Click download — done!</div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">🔒</div>
+              <div class="step-title">100% Private</div>
+              <div class="step-desc">Files never leave your device. No servers, no tracking.</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end page-content -->
+
+      <!-- RIGHT SIDEBAR with Ads -->
+      <aside class="page-sidebar">
+
+        <!-- Ad 300x250 -->
+        <div class="ad-sidebar-card">
+          <div class="ad-sidebar-label">Advertisement</div>
+          <div class="ad-sidebar-slot">
+            📢<br>Google AdSense<br>300×250
+            <!-- <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins> -->
+          </div>
+        </div>
+
+        <!-- Quick Tools Widget -->
+        <div class="sidebar-tools-widget">
+          <div class="sidebar-widget-title">⚡ Quick Tools</div>
+          <div class="sidebar-tool-link" onclick="App.showPage('image-converter')"><span class="sidebar-tool-icon">🔄</span> Image Converter</div>
+          <div class="sidebar-tool-link" onclick="App.showPage('image-compressor')"><span class="sidebar-tool-icon">🗜️</span> Image Compressor</div>
+          <div class="sidebar-tool-link" onclick="App.showPage('pdf-tools')"><span class="sidebar-tool-icon">📄</span> PDF Tools</div>
+          <div class="sidebar-tool-link" onclick="App.showPage('audio-converter')"><span class="sidebar-tool-icon">🎵</span> Audio Converter</div>
+          <div class="sidebar-tool-link" onclick="App.showPage('video-converter')"><span class="sidebar-tool-icon">🎬</span> Video Converter</div>
+        </div>
+
+        <!-- Ad 300x600 -->
+        <div class="ad-sidebar-card">
+          <div class="ad-sidebar-label">Advertisement</div>
+          <div class="ad-sidebar-slot ad-sidebar-slot-tall">
+            📢<br>Google AdSense<br>300×600
+            <!-- <ins class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins> -->
+          </div>
+        </div>
+
+      </aside>
+
+    </div><!-- end page-layout -->
+  </section>
+
+</div><!-- end page-home -->
+
+
+<!-- ══════════════════════════════════
+     IMAGE CONVERTER PAGE
+══════════════════════════════════ -->
+<div id="page-image-converter" class="page">
+  <div class="page-layout" style="padding-top:32px">
+    <div class="page-content">
+      <div class="tool-page">
+        <div class="tool-page-inner">
+          <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+          <div class="tool-page-header">
+            <div class="tool-page-icon icon-blue">🔄</div>
+            <div><h1>Image Format Converter</h1><p>Convert JPG, PNG, WebP, GIF, BMP — batch supported</p></div>
+          </div>
+          <div class="ad-slot ad-banner">📢 Ad · 728×90</div>
+          <div class="upload-zone" id="img-zone">
+            <input type="file" id="img-input" class="file-input" multiple accept="image/*" />
+            <div class="upload-zone-icon">🖼️</div>
+            <div class="upload-zone-title">Drop Images Here</div>
+            <div class="upload-zone-sub">JPG, PNG, WebP, GIF, BMP, TIFF · Multiple files · Drag & drop or click</div>
+            <button class="btn btn-primary" onclick="document.getElementById('img-input').click()">Browse Files</button>
+          </div>
+          <div class="options-panel">
+            <div class="options-panel-title">⚙️ Settings</div>
+            <div class="options-row">
+              <div class="option-group">
+                <label class="option-label" for="img-format">Output Format</label>
+                <select class="option-select" id="img-format">
+                  <option value="image/jpeg">JPG / JPEG</option>
+                  <option value="image/png">PNG</option>
+                  <option value="image/webp">WebP</option>
+                  <option value="image/bmp">BMP</option>
+                </select>
+              </div>
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label class="option-label">Quality</label>
+                  <span class="slider-val" id="img-quality-val">85%</span>
+                </div>
+                <input type="range" id="img-quality" min="10" max="100" value="85" />
+              </div>
+            </div>
+          </div>
+          <div id="img-file-list" class="file-list"></div>
+          <div class="action-bar hidden" id="img-actions">
+            <button class="btn btn-primary" id="img-convert-btn">⚡ Convert All</button>
+            <button class="btn btn-success hidden" id="img-download-btn">⬇️ Download All</button>
+            <button class="btn btn-secondary" id="img-clear-btn">🗑️ Clear</button>
+          </div>
+          <div class="ad-slot ad-banner mt-32">📢 Ad · 728×90</div>
+        </div>
+      </div>
+    </div>
+    <aside class="page-sidebar">
+      <div class="ad-sidebar-card">
+        <div class="ad-sidebar-label">Advertisement</div>
+        <div class="ad-sidebar-slot">📢<br>300×250</div>
+      </div>
+      <div class="sidebar-tools-widget">
+        <div class="sidebar-widget-title">🖼️ Image Tools</div>
+        <div class="sidebar-tool-link" onclick="App.showPage('image-compressor')"><span class="sidebar-tool-icon">🗜️</span> Image Compressor</div>
+        <div class="sidebar-tool-link" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/jpeg'"><span class="sidebar-tool-icon">🔵</span> PNG to JPG</div>
+        <div class="sidebar-tool-link" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/png'"><span class="sidebar-tool-icon">🟣</span> JPG to PNG</div>
+        <div class="sidebar-tool-link" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/webp'"><span class="sidebar-tool-icon">🌐</span> Convert to WebP</div>
+      </div>
+      <div class="ad-sidebar-card">
+        <div class="ad-sidebar-label">Advertisement</div>
+        <div class="ad-sidebar-slot ad-sidebar-slot-tall">📢<br>300×600</div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     IMAGE COMPRESSOR PAGE
+══════════════════════════════════ -->
+<div id="page-image-compressor" class="page">
+  <div class="page-layout" style="padding-top:32px">
+    <div class="page-content">
+      <div class="tool-page">
+        <div class="tool-page-inner">
+          <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+          <div class="tool-page-header">
+            <div class="tool-page-icon icon-green">🗜️</div>
+            <div><h1>Image Compressor</h1><p>Reduce file size up to 90% — no visible quality loss</p></div>
+          </div>
+          <div class="ad-slot ad-banner">📢 Ad · 728×90</div>
+          <div class="upload-zone" id="imgc-zone">
+            <input type="file" id="imgc-input" class="file-input" multiple accept="image/jpeg,image/png,image/webp" />
+            <div class="upload-zone-icon">🗜️</div>
+            <div class="upload-zone-title">Drop Images to Compress</div>
+            <div class="upload-zone-sub">JPG, PNG, WebP · Batch compression · Drag & drop or click</div>
+            <button class="btn btn-primary" onclick="document.getElementById('imgc-input').click()">Browse Files</button>
+          </div>
+          <div class="options-panel">
+            <div class="options-panel-title">⚙️ Compression</div>
+            <div class="options-row">
+              <div class="slider-group" style="min-width:250px">
+                <div class="slider-header">
+                  <label class="option-label">Quality Level</label>
+                  <span class="slider-val" id="imgc-quality-val">72%</span>
+                </div>
+                <input type="range" id="imgc-quality" min="10" max="95" value="72" />
+              </div>
+              <p style="font-size:0.8rem;color:var(--text-muted);align-self:flex-end;padding-bottom:4px">60–80% = best balance</p>
+            </div>
+          </div>
+          <div id="imgc-file-list" class="file-list"></div>
+          <div class="action-bar hidden" id="imgc-actions">
+            <button class="btn btn-primary" id="imgc-compress-btn">🗜️ Compress All</button>
+            <button class="btn btn-success hidden" id="imgc-download-btn">⬇️ Download All</button>
+            <button class="btn btn-secondary" id="imgc-clear-btn">🗑️ Clear</button>
+          </div>
+          <div class="ad-slot ad-banner mt-32">📢 Ad · 728×90</div>
+        </div>
+      </div>
+    </div>
+    <aside class="page-sidebar">
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot">📢<br>300×250</div></div>
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot ad-sidebar-slot-tall">📢<br>300×600</div></div>
+    </aside>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PDF TOOLS PAGE
+══════════════════════════════════ -->
+<div id="page-pdf-tools" class="page">
+  <div class="page-layout" style="padding-top:32px">
+    <div class="page-content">
+      <div class="tool-page">
+        <div class="tool-page-inner">
+          <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+          <div class="tool-page-header">
+            <div class="tool-page-icon icon-pink">📄</div>
+            <div><h1>PDF Tools</h1><p>Compress, merge, split, rotate and convert PDF files</p></div>
+          </div>
+          <div class="ad-slot ad-banner">📢 Ad · 728×90</div>
+          <div class="pdf-subtabs mt-20">
+            <button class="pdf-subtab active" data-panel="compress">🗜️ Compress</button>
+            <button class="pdf-subtab" data-panel="merge">🔗 Merge</button>
+            <button class="pdf-subtab" data-panel="split">✂️ Split</button>
+            <button class="pdf-subtab" data-panel="rotate">🔄 Rotate</button>
+            <button class="pdf-subtab" data-panel="toimg">🖼️ PDF→Images</button>
+          </div>
+
+          <!-- COMPRESS -->
+          <div id="pdf-compress" class="pdf-panel active">
+            <div class="upload-zone" id="pdfc-zone">
+              <input type="file" id="pdfc-input" class="file-input" multiple accept=".pdf,application/pdf" />
+              <div class="upload-zone-icon">📄</div>
+              <div class="upload-zone-title">Drop PDFs to Compress</div>
+              <div class="upload-zone-sub">Reduces PDF size while keeping quality</div>
+              <button class="btn btn-primary" onclick="document.getElementById('pdfc-input').click()">Browse PDF Files</button>
+            </div>
+            <div id="pdfc-list" class="file-list mt-20"></div>
+          </div>
+
+          <!-- MERGE -->
+          <div id="pdf-merge" class="pdf-panel">
+            <div class="upload-zone" id="pdfm-zone">
+              <input type="file" id="pdfm-input" class="file-input" multiple accept=".pdf" />
+              <div class="upload-zone-icon">🔗</div>
+              <div class="upload-zone-title">Drop PDFs to Merge</div>
+              <div class="upload-zone-sub">Add 2 or more PDFs — combined in order</div>
+              <button class="btn btn-primary" onclick="document.getElementById('pdfm-input').click()">Browse PDF Files</button>
+            </div>
+            <div id="pdfm-list" class="file-list mt-20"></div>
+            <div class="action-bar mt-16">
+              <button class="btn btn-primary hidden" id="pdfm-merge-btn">🔗 Merge All PDFs</button>
+            </div>
+          </div>
+
+          <!-- SPLIT -->
+          <div id="pdf-split" class="pdf-panel">
+            <div class="upload-zone" id="pdfs-zone">
+              <input type="file" id="pdfs-input" class="file-input" accept=".pdf" />
+              <div class="upload-zone-icon">✂️</div>
+              <div class="upload-zone-title">Drop a PDF to Split</div>
+              <div class="upload-zone-sub">Extract individual pages into separate files</div>
+              <button class="btn btn-primary" onclick="document.getElementById('pdfs-input').click()">Browse PDF File</button>
+            </div>
+            <div id="pdfs-info" class="mt-20"></div>
+          </div>
+
+          <!-- ROTATE -->
+          <div id="pdf-rotate" class="pdf-panel">
+            <div class="upload-zone" id="pdfr-zone">
+              <input type="file" id="pdfr-input" class="file-input" accept=".pdf" />
+              <div class="upload-zone-icon">🔄</div>
+              <div class="upload-zone-title">Drop a PDF to Rotate</div>
+              <div class="upload-zone-sub">Rotate all pages 90°, 180°, or 270°</div>
+              <button class="btn btn-primary" onclick="document.getElementById('pdfr-input').click()">Browse PDF File</button>
+            </div>
+            <div id="pdfr-info" class="mt-20"></div>
+          </div>
+
+          <!-- PDF TO IMAGES -->
+          <div id="pdf-toimg" class="pdf-panel">
+            <div class="upload-zone" id="pdfimg-zone">
+              <input type="file" id="pdfimg-input" class="file-input" accept=".pdf" />
+              <div class="upload-zone-icon">🖼️</div>
+              <div class="upload-zone-title">Drop a PDF to Convert to Images</div>
+              <div class="upload-zone-sub">Each page saved as JPG or PNG</div>
+              <button class="btn btn-primary" onclick="document.getElementById('pdfimg-input').click()">Browse PDF File</button>
+            </div>
+            <div id="pdfimg-info" class="mt-20"></div>
+          </div>
+
+          <div class="ad-slot ad-banner mt-32">📢 Ad · 728×90</div>
+        </div>
+      </div>
+    </div>
+    <aside class="page-sidebar">
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot">📢<br>300×250</div></div>
+      <div class="sidebar-tools-widget">
+        <div class="sidebar-widget-title">📄 PDF Tools</div>
+        <div class="sidebar-tool-link" onclick="document.querySelector('[data-panel=compress]')?.click()"><span class="sidebar-tool-icon">🗜️</span> Compress PDF</div>
+        <div class="sidebar-tool-link" onclick="document.querySelector('[data-panel=merge]')?.click()"><span class="sidebar-tool-icon">🔗</span> Merge PDFs</div>
+        <div class="sidebar-tool-link" onclick="document.querySelector('[data-panel=split]')?.click()"><span class="sidebar-tool-icon">✂️</span> Split PDF</div>
+        <div class="sidebar-tool-link" onclick="document.querySelector('[data-panel=rotate]')?.click()"><span class="sidebar-tool-icon">🔄</span> Rotate PDF</div>
+        <div class="sidebar-tool-link" onclick="document.querySelector('[data-panel=toimg]')?.click()"><span class="sidebar-tool-icon">🖼️</span> PDF to Images</div>
+      </div>
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot ad-sidebar-slot-tall">📢<br>300×600</div></div>
+    </aside>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     AUDIO CONVERTER PAGE
+══════════════════════════════════ -->
+<div id="page-audio-converter" class="page">
+  <div class="page-layout" style="padding-top:32px">
+    <div class="page-content">
+      <div class="tool-page">
+        <div class="tool-page-inner">
+          <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+          <div class="tool-page-header">
+            <div class="tool-page-icon icon-indigo">🎵</div>
+            <div><h1>Audio Converter</h1><p>Convert MP3, WAV, OGG, AAC, FLAC in your browser</p></div>
+          </div>
+          <div class="ad-slot ad-banner">📢 Ad · 728×90</div>
+          <div class="info-banner">ℹ️ <strong>Powered by FFmpeg.wasm</strong> — Runs 100% in your browser. The FFmpeg library (~20MB) loads on first click of Convert.</div>
+          <div class="upload-zone" id="audio-zone">
+            <input type="file" id="audio-input" class="file-input" accept="audio/*,.mp3,.wav,.ogg,.aac,.flac,.m4a" />
+            <div class="upload-zone-icon">🎵</div>
+            <div class="upload-zone-title">Drop Audio File Here</div>
+            <div class="upload-zone-sub">MP3, WAV, OGG, AAC, FLAC, M4A</div>
+            <button class="btn btn-primary" onclick="document.getElementById('audio-input').click()">Browse Audio File</button>
+          </div>
+          <div id="audio-info" class="mt-20"></div>
+          <div class="options-panel hidden" id="audio-actions">
+            <div class="options-panel-title">⚙️ Output Format</div>
+            <div class="options-row">
+              <div class="option-group">
+                <label class="option-label">Convert To</label>
+                <select class="option-select" id="audio-format">
+                  <option value="mp3">MP3</option>
+                  <option value="wav">WAV</option>
+                  <option value="ogg">OGG</option>
+                  <option value="aac">AAC</option>
+                </select>
+              </div>
+              <div>
+                <button class="btn btn-primary" id="audio-convert-btn">⚡ Convert Audio</button>
+                <p id="audio-status" style="font-size:0.82rem;color:var(--accent-1);margin-top:8px;font-weight:500"></p>
+              </div>
+            </div>
+          </div>
+          <div class="ad-slot ad-banner mt-32">📢 Ad · 728×90</div>
+        </div>
+      </div>
+    </div>
+    <aside class="page-sidebar">
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot">📢<br>300×250</div></div>
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot ad-sidebar-slot-tall">📢<br>300×600</div></div>
+    </aside>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     VIDEO CONVERTER PAGE
+══════════════════════════════════ -->
+<div id="page-video-converter" class="page">
+  <div class="page-layout" style="padding-top:32px">
+    <div class="page-content">
+      <div class="tool-page">
+        <div class="tool-page-inner">
+          <a href="#" class="back-link" data-page="home">← Back to all tools</a>
+          <div class="tool-page-header">
+            <div class="tool-page-icon icon-purple">🎬</div>
+            <div><h1>Video Converter</h1><p>Convert MP4, AVI, MOV, WebM, MKV and make GIFs</p></div>
+          </div>
+          <div class="ad-slot ad-banner">📢 Ad · 728×90</div>
+          <div class="info-banner" style="background:rgba(162,89,247,0.08);border-color:rgba(162,89,247,0.2)">ℹ️ <strong>Browser-based conversion</strong> — Large files may take several minutes. Max 500MB. FFmpeg loads on first use (~20MB).</div>
+          <div class="upload-zone" id="video-zone">
+            <input type="file" id="video-input" class="file-input" accept="video/*" />
+            <div class="upload-zone-icon">🎬</div>
+            <div class="upload-zone-title">Drop Video File Here</div>
+            <div class="upload-zone-sub">MP4, AVI, MOV, MKV, WebM · Max 500MB</div>
+            <button class="btn btn-primary" onclick="document.getElementById('video-input').click()">Browse Video File</button>
+          </div>
+          <div id="video-info" class="mt-20"></div>
+          <div class="options-panel hidden" id="video-actions">
+            <div class="options-panel-title">⚙️ Output Format</div>
+            <div class="options-row">
+              <div class="option-group">
+                <label class="option-label">Convert To</label>
+                <select class="option-select" id="video-format">
+                  <option value="mp4">MP4</option>
+                  <option value="webm">WebM</option>
+                  <option value="avi">AVI</option>
+                  <option value="gif">GIF (Animated)</option>
+                </select>
+              </div>
+              <div>
+                <button class="btn btn-primary" id="video-convert-btn">⚡ Convert Video</button>
+                <p id="video-status" style="font-size:0.82rem;color:var(--accent-1);margin-top:8px;font-weight:500"></p>
+              </div>
+            </div>
+          </div>
+          <div class="ad-slot ad-banner mt-32">📢 Ad · 728×90</div>
+        </div>
+      </div>
+    </div>
+    <aside class="page-sidebar">
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot">📢<br>300×250</div></div>
+      <div class="ad-sidebar-card"><div class="ad-sidebar-label">Advertisement</div><div class="ad-sidebar-slot ad-sidebar-slot-tall">📢<br>300×600</div></div>
+    </aside>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     ABOUT / PRIVACY / TERMS
+══════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="content-page">
+    <a href="#" class="back-link" data-page="home">← Back</a>
+    <h1>About FileForge</h1>
+    <p class="updated">Free file tools for everyone</p>
+    <div class="content-block"><h3>🚀 What is FileForge?</h3><p>FileForge is a free, browser-based file conversion and compression platform. File conversion should be instant, private, and free — no logins, no paywalls, no limits.</p></div>
+    <div class="content-block"><h3>🔒 Your Privacy Comes First</h3><p>All conversions happen directly in your browser. Your files are never uploaded to any server. We cannot see your files — ever.</p></div>
+    <div class="content-block"><h3>⚡ Powered By</h3><p>PDF-lib for PDF tools, PDF.js for PDF rendering, FFmpeg.wasm for audio/video conversion, and HTML5 Canvas for image processing. All 100% client-side.</p></div>
+    <div class="content-block"><h3>💡 Always Free</h3><p>FileForge is completely free. We show non-intrusive Google AdSense ads to cover costs. No premium plans, no hidden fees, ever.</p></div>
+  </div>
+</div>
+
+<div id="page-privacy" class="page">
+  <div class="content-page">
+    <a href="#" class="back-link" data-page="home">← Back</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: February 2026</p>
+    <div class="content-block"><h3>1. No File Collection</h3><p>All file processing occurs in your browser. <strong>We do not upload, store, or transmit your files to any server.</strong> Your files never leave your device.</p></div>
+    <div class="content-block"><h3>2. Analytics</h3><p>We may use anonymous analytics (Google Analytics) to understand usage. No file content or personal data is collected.</p></div>
+    <div class="content-block"><h3>3. Advertising</h3><p>We display Google AdSense advertisements. Google may use cookies to serve relevant ads. Opt out at adssettings.google.com.</p></div>
+    <div class="content-block"><h3>4. Contact</h3><p>Questions? Contact: privacy@yourdomain.com</p></div>
+  </div>
+</div>
+
+<div id="page-terms" class="page">
+  <div class="content-page">
+    <a href="#" class="back-link" data-page="home">← Back</a>
+    <h1>Terms of Service</h1>
+    <p class="updated">Last updated: February 2026</p>
+    <div class="content-block"><h3>1. Acceptable Use</h3><p>Use FileForge for personal and commercial purposes. Do not use it for illegal content or to harm others.</p></div>
+    <div class="content-block"><h3>2. No Warranty</h3><p>FileForge is provided "as is". Always keep backups of important files before converting.</p></div>
+    <div class="content-block"><h3>3. Your Content</h3><p>You retain full ownership of your files. We claim no rights over your content.</p></div>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" data-page="home"><div class="logo-icon">⚡</div><div class="logo-text" style="margin-left:10px">File<span>Forge</span></div></a>
+      <p>Free online file converter and compressor. 100% browser-based. Your files stay private on your device.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Image Tools</h4>
+      <a href="#" onclick="App.showPage('image-converter')">Image Converter</a>
+      <a href="#" onclick="App.showPage('image-compressor')">Image Compressor</a>
+      <a href="#" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/jpeg'">PNG to JPG</a>
+      <a href="#" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/png'">JPG to PNG</a>
+      <a href="#" onclick="App.showPage('image-converter');document.getElementById('img-format').value='image/webp'">To WebP</a>
+    </div>
+    <div class="footer-col">
+      <h4>PDF Tools</h4>
+      <a href="#" onclick="App.showPage('pdf-tools')">Compress PDF</a>
+      <a href="#" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=merge]')?.click()">Merge PDFs</a>
+      <a href="#" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=split]')?.click()">Split PDF</a>
+      <a href="#" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=rotate]')?.click()">Rotate PDF</a>
+      <a href="#" onclick="App.showPage('pdf-tools');document.querySelector('[data-panel=toimg]')?.click()">PDF to Images</a>
+    </div>
+    <div class="footer-col">
+      <h4>More</h4>
+      <a href="#" onclick="App.showPage('audio-converter')">Audio Converter</a>
+      <a href="#" onclick="App.showPage('video-converter')">Video Converter</a>
+      <a href="#" data-page="about">About Us</a>
+      <a href="#" data-page="privacy">Privacy Policy</a>
+      <a href="#" data-page="terms">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 FileForge. All file conversions processed locally in your browser.</p>
+    <div class="footer-links">
+      <a href="#" data-page="about">About</a>
+      <a href="#" data-page="privacy">Privacy</a>
+      <a href="#" data-page="terms">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon">✅</span>
+  <span class="toast-msg" id="toast-msg">Done!</span>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

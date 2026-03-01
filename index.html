@@ -233,6 +233,17 @@ main { padding-top: var(--nav-h); position: relative; z-index: 1; }
   color: var(--text2); transition: all 0.2s; cursor: default;
 }
 .fmt-tag:hover { border-color: var(--blue); color: var(--blue); }
+.fmt-link {
+  cursor: pointer !important;
+  transition: all 0.18s;
+}
+.fmt-link:hover {
+  background: rgba(79,142,247,0.15) !important;
+  border-color: var(--blue) !important;
+  color: var(--blue) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79,142,247,0.2);
+}
 
 /* ─── SECTION ─── */
 .section { padding: 0 0 80px; }
@@ -634,16 +645,29 @@ footer {
     <div class="formats-box">
       <div class="formats-label">Supported Formats</div>
       <div class="formats-list">
-        <span class="fmt-tag">PDF</span><span class="fmt-tag">DOCX</span><span class="fmt-tag">PPT</span>
-        <span class="fmt-tag">PPTX</span><span class="fmt-tag">XLS</span><span class="fmt-tag">XLSX</span>
-        <span class="fmt-tag">JPG</span><span class="fmt-tag">PNG</span><span class="fmt-tag">WebP</span>
-        <span class="fmt-tag">SVG</span><span class="fmt-tag">HEIC</span><span class="fmt-tag">AVIF</span>
-        <span class="fmt-tag">GIF</span><span class="fmt-tag">BMP</span><span class="fmt-tag">TIFF</span>
-        <span class="fmt-tag">MP4</span><span class="fmt-tag">MKV</span><span class="fmt-tag">MOV</span>
-        <span class="fmt-tag">AVI</span><span class="fmt-tag">WebM</span><span class="fmt-tag">MP3</span>
-        <span class="fmt-tag">WAV</span><span class="fmt-tag">FLAC</span><span class="fmt-tag">AAC</span>
-        <span class="fmt-tag">OGG</span><span class="fmt-tag">ZIP</span><span class="fmt-tag">RAR</span>
-        <span class="fmt-tag">CSV</span><span class="fmt-tag">HTML</span><span class="fmt-tag">TXT</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('pdf-tools')">PDF</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">JPG</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">PNG</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">WebP</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">GIF</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">BMP</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">TIFF</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">HEIC</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">AVIF</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('image-converter')">SVG</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('audio-converter')">MP3</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('audio-converter')">WAV</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('audio-converter')">FLAC</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('audio-converter')">AAC</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('audio-converter')">OGG</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('video-converter')">MP4</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('video-converter')">MKV</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('video-converter')">MOV</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('video-converter')">AVI</span>
+        <span class="fmt-tag fmt-link" onclick="App.showPage('video-converter')">WebM</span>
+        <span class="fmt-tag">DOCX</span><span class="fmt-tag">PPT</span><span class="fmt-tag">XLS</span>
+        <span class="fmt-tag">ZIP</span><span class="fmt-tag">RAR</span><span class="fmt-tag">CSV</span>
+        <span class="fmt-tag">HTML</span><span class="fmt-tag">TXT</span>
       </div>
     </div>
   </div>
@@ -1499,39 +1523,38 @@ const AudioConverter = {
     if (this.ffmpegLoaded) return true;
     if (this.ffmpegLoading) { showToast('FFmpeg still loading…', '⏳'); return false; }
     this.ffmpegLoading = true;
-    showToast('Loading FFmpeg converter (~20MB)…', '⏳');
+    showToast('Loading audio converter…', '⏳');
     try {
+      // Use FFmpeg 0.10.x which works WITHOUT SharedArrayBuffer (no special headers needed)
       if (typeof FFmpeg === 'undefined') {
         await new Promise((res, rej) => {
           const s = document.createElement('script');
-          s.src = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
-          s.onload = res;
-          s.onerror = () => {
-            const s2 = document.createElement('script');
-            s2.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
-            s2.onload = res; s2.onerror = rej;
-            document.head.appendChild(s2);
-          };
+          s.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.10.1/dist/ffmpeg.min.js';
+          s.onload = res; s.onerror = rej;
           document.head.appendChild(s);
         });
       }
-      const { createFFmpeg } = FFmpeg;
-      this._ff = createFFmpeg({ log: false, corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+      const { createFFmpeg, fetchFile } = FFmpeg;
+      this._ff = createFFmpeg({
+        log: false,
+        corePath: 'https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',
+      });
+      this._fetchFile = fetchFile;
       await this._ff.load();
       this.ffmpegLoaded = true; this.ffmpegLoading = false;
-      showToast('FFmpeg ready!', '✅'); return true;
-    } catch { this.ffmpegLoading = false; return false; }
+      showToast('Converter ready!', '✅'); return true;
+    } catch(e) { this.ffmpegLoading = false; console.error(e); return false; }
   },
   async convert() {
     if (!this.file) { showToast('Please upload an audio file first', '⚠️'); return; }
     const format = $('#audio-format')?.value || 'mp3';
     const loaded = await this.loadFFmpeg();
-    if (!loaded) { downloadBlob(this.file, this.file.name.replace(/\.[^.]+$/, '') + '.' + format); showToast('Downloaded (FFmpeg needed for full conversion)', 'ℹ️'); return; }
+    if (!loaded) { showToast('Failed to load. Check internet connection.', '❌'); return; }
     try {
       const st = $('#audio-status'); if (st) st.textContent = '⚡ Converting…';
       const ext = this.file.name.split('.').pop().toLowerCase();
       const inName = `input.${ext}`, outName = `output.${format}`;
-      this._ff.FS('writeFile', inName, await FFmpeg.fetchFile(this.file));
+      this._ff.FS('writeFile', inName, await this._fetchFile(this.file));
       let args = ['-i', inName];
       if (format === 'mp3') args.push('-codec:a', 'libmp3lame', '-q:a', '2');
       else if (format === 'ogg') args.push('-codec:a', 'libvorbis', '-q:a', '4');
@@ -1573,35 +1596,40 @@ const VideoConverter = {
     if (this.ffmpegLoaded) return true;
     if (this.ffmpegLoading) { showToast('FFmpeg still loading…', '⏳'); return false; }
     this.ffmpegLoading = true;
-    showToast('Loading FFmpeg (~20MB first time)…', '⏳');
+    showToast('Loading video converter…', '⏳');
     try {
       if (typeof FFmpeg === 'undefined') {
         await new Promise((res, rej) => {
           const s = document.createElement('script');
-          s.src = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
-          s.onload = res;
-          s.onerror = () => { const s2 = document.createElement('script'); s2.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js'; s2.onload = res; s2.onerror = rej; document.head.appendChild(s2); };
+          s.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.10.1/dist/ffmpeg.min.js';
+          s.onload = res; s.onerror = rej;
           document.head.appendChild(s);
         });
       }
-      const { createFFmpeg } = FFmpeg;
-      this._ff = createFFmpeg({ log: false, corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js',
-        progress: ({ ratio }) => { const el = $('#video-status'); if (el) el.textContent = `⚡ Converting: ${Math.round(ratio * 100)}%`; }
+      const { createFFmpeg, fetchFile } = FFmpeg;
+      this._fetchFile = fetchFile;
+      this._ff = createFFmpeg({
+        log: false,
+        corePath: 'https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',
+        progress: ({ ratio }) => {
+          const el = $('#video-status');
+          if (el) el.textContent = `⚡ Converting: ${Math.round(ratio * 100)}%`;
+        }
       });
       await this._ff.load();
       this.ffmpegLoaded = true; this.ffmpegLoading = false; return true;
-    } catch { this.ffmpegLoading = false; return false; }
+    } catch(e) { this.ffmpegLoading = false; console.error(e); return false; }
   },
   async convert() {
     if (!this.file) { showToast('Please upload a video file first', '⚠️'); return; }
     const format = $('#video-format')?.value || 'mp4';
     const loaded = await this.loadFFmpeg();
-    if (!loaded) { showToast('FFmpeg failed to load. Try Chrome.', '❌'); return; }
+    if (!loaded) { showToast('Converter failed to load. Check your internet and try again.', '❌'); return; }
     const st = $('#video-status');
     try {
       if (st) st.textContent = '⚡ Starting…';
       const ext = this.file.name.split('.').pop().toLowerCase();
-      this._ff.FS('writeFile', `in.${ext}`, await FFmpeg.fetchFile(this.file));
+      this._ff.FS('writeFile', `in.${ext}`, await this._fetchFile(this.file));
       let args;
       if (format === 'gif') args = ['-i', `in.${ext}`, '-vf', 'fps=12,scale=480:-1:flags=lanczos', '-loop', '0', 'out.gif'];
       else if (format === 'webm') args = ['-i', `in.${ext}`, '-c:v', 'libvpx', '-b:v', '1M', '-c:a', 'libvorbis', 'out.webm'];
@@ -1611,7 +1639,7 @@ const VideoConverter = {
       downloadBlob(new Blob([data.buffer], { type: format === 'gif' ? 'image/gif' : `video/${format}` }), this.file.name.replace(/\.[^.]+$/, '') + '.' + format);
       if (st) st.textContent = '';
       showToast('Video converted! 🎉');
-    } catch(e) { if (st) st.textContent = ''; showToast('Conversion failed. Large files may need desktop software.', '❌'); }
+    } catch(e) { if (st) st.textContent = ''; showToast('Conversion failed. Try a smaller file.', '❌'); }
   }
 };
 
